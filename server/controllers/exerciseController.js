@@ -44,7 +44,7 @@ module.exports = {
             );
 
             if (!exercise) {
-                return res.status(404).json({'No exercise with this id!'})
+                return res.status(404).json({message:'No exercise with this id!' });
             }
         res.json(exercise);
         } catch (err) {
@@ -52,7 +52,7 @@ module.exports = {
           res.status(500).json(err);
         }
     },
-
+    //delete an exercise
     async removeExercise(req, res) {
       try {
         const exercise = await Exercise.findOneAndRemove({ _id: req.params.exerciseId});
