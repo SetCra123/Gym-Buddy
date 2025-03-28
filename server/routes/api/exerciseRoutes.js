@@ -9,7 +9,7 @@ const {
 
 
 
-router.route('/').post(createExercise).put(authMiddleware);
+router.route('/').post(createExercise);
 router.route('/').get(getAllExercises);
 router.route('/').get(getExercise);
 router.route('/:Id').delete(removeExercise);

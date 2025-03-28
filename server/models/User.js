@@ -9,39 +9,40 @@ const userSchema = new Schema (
         type: String,
         required: true,
       },
-      email: {
-        type: String,
-        required: true,
-      },
-      password: {
-        type: String,
-        required: true,
-      },
+    //   email: {
+    //     type: String,
+    //     required: true,
+    //   },
+    //   password: {
+    //     type: String,
+    //     required: true,
+    //   },
       height: [{
-        type: Schema.Types.ObjectID,
+        type: String,
         ref: "Height",
         required: true,
       }],
       weight: [{
-        type: Schema.Types.ObjectID,
+        type: Number,
         ref: "Weight",
         required: true,
       }],
-      current_body_type: [{
-        type: Schema.Types.ObjectID,
-        ref: "Curret_Body_Type",
-        required: true,
-      }],
+    //   current_body_type: [{
+    //     type: Schema.Types.ObjectID,
+    //     ref: "Curret_Body_Type",
+    //     required: true,
+    //   }],
       goal_body_type: [{
-        type: Schema.Types.ObjectID,
+        type: String,
         ref: "Goal_Body_Type",
         required: true,
+        enum: ['Lean', 'Muscular', 'Bulk', 'Toned']
       }],
-      createdAt: {
-        type: Date,
-        default: Date.now(),
-        require: true,
-      },
+    //   createdAt: {
+    //     type: Date,
+    //     default: Date.now(),
+    //     require: true,
+    //   },
 
  }
 );
