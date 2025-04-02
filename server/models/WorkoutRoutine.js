@@ -22,6 +22,16 @@ const workoutRoutineSchema = new Schema (
         enum: ['Low', 'Medium', 'High'],
         required: true
      },
+     diffifculty: {
+      type: String
+     },
+     goal: [{
+      type: String,
+      ref: "Goal",
+      required: true,
+      enum: ['Lean', 'Muscular', 'Bulk', 'Toned']
+    }],
+     
     //  createdAt: {
     //     type: Date,
     //     default: Date.now

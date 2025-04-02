@@ -32,9 +32,9 @@ const userSchema = new Schema (
     //     ref: "Curret_Body_Type",
     //     required: true,
     //   }],
-      goal_body_type: [{
+      goal: [{
         type: String,
-        ref: "Goal_Body_Type",
+        ref: "Goal",
         required: true,
         enum: ['Lean', 'Muscular', 'Bulk', 'Toned']
       }],

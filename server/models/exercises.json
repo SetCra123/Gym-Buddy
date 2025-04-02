@@ -1,0 +1,93 @@
+[
+    {
+      "name": "Push-ups",
+      "muscleGroup": "Chest",
+      "difficulty": "Beginner",
+      "equipment": "Bodyweight",
+      "reps": "10-15",
+      "sets": "3",
+      "duration": "30s",
+      "caloriesBurned": 50
+    },
+    {
+      "name": "Bench Press",
+      "muscleGroup": "Chest",
+      "difficulty": "Intermediate",
+      "equipment": "Barbell",
+      "reps": "8-12",
+      "sets": "4",
+      "duration": "45s",
+      "caloriesBurned": 70
+    },
+    {
+      "name": "Squats",
+      "muscleGroup": "Legs",
+      "difficulty": "Beginner",
+      "equipment": "Bodyweight",
+      "reps": "12-15",
+      "sets": "3",
+      "duration": "30s",
+      "caloriesBurned": 60
+    },
+    {
+      "name": "Deadlifts",
+      "muscleGroup": "Legs",
+      "difficulty": "Advanced",
+      "equipment": "Barbell",
+      "reps": "5-8",
+      "sets": "4",
+      "duration": "60s",
+      "caloriesBurned": 100
+    },
+    {
+      "name": "Pull-ups",
+      "muscleGroup": "Back",
+      "difficulty": "Intermediate",
+      "equipment": "Pull-up Bar",
+      "reps": "8-12",
+      "sets": "3",
+      "duration": "30s",
+      "caloriesBurned": 60
+    },
+    {
+      "name": "Bicep Curls",
+      "muscleGroup": "Arms",
+      "difficulty": "Beginner",
+      "equipment": "Dumbbells",
+      "reps": "10-15",
+      "sets": "3",
+      "duration": "30s",
+      "caloriesBurned": 40
+    },
+    {
+      "name": "Triceps Dips",
+      "muscleGroup": "Arms",
+      "difficulty": "Intermediate",
+      "equipment": "Parallel Bars",
+      "reps": "8-12",
+      "sets": "3",
+      "duration": "30s",
+      "caloriesBurned": 50
+    },
+    {
+      "name": "Plank",
+      "muscleGroup": "Core",
+      "difficulty": "Beginner",
+      "equipment": "Bodyweight",
+      "reps": "1",
+      "sets": "3",
+      "duration": "60s",
+      "caloriesBurned": 30
+    },
+    {
+      "name": "Crunches",
+      "muscleGroup": "Core",
+      "difficulty": "Beginner",
+      "equipment": "Bodyweight",
+      "reps": "15-20",
+      "sets": "3",
+      "duration": "30s",
+      "caloriesBurned": 40
+    }
+  ]
+  

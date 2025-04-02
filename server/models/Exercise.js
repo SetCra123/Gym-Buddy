@@ -8,7 +8,7 @@ const exerciseSchema = new Schema (
         type: String,
         required: true,
       },
-      muscle_group: {
+      muscleGroup: {
         type: String,
         required: true,
       },
@@ -17,12 +17,21 @@ const exerciseSchema = new Schema (
         enum: ['Beginner', 'Intermediate', 'Advanced'],
         required: true,
       },
-      equipmentRequired: { 
+      equipment: { 
         type: Boolean, 
         default: false 
       },
-      description: { 
-        type: String 
+      reps: { 
+        type: String
+      },
+      sets: {
+        type: String
+      },
+      duration: {
+        type: String
+      },
+      caloriesBurned: {
+        type: String
       },
       videoUrl: { 
         type: String 

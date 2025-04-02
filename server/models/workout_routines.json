@@ -1,0 +1,55 @@
+[
+    {
+      "goal": "Lean",
+      "difficulty": "Beginner",
+      "duration": "30 minutes",
+      "intensity": "Medium",
+      "exercises": [
+        "Push-ups",
+        "Squats",
+        "Pull-ups",
+        "Plank",
+        "Crunches"
+      ]
+    },
+    {
+      "goal": "Muscular",
+      "difficulty": "Intermediate",
+      "duration": "45 minutes",
+      "intensity": "High",
+      "exercises": [
+        "Bench Press",
+        "Deadlifts",
+        "Pull-ups",
+        "Bicep Curls",
+        "Triceps Dips"
+      ]
+    },
+    {
+      "goal": "Bulk",
+      "difficulty": "Advanced",
+      "duration": "60 minutes",
+      "intensity": "High",
+      "exercises": [
+        "Bench Press",
+        "Deadlifts",
+        "Squats",
+        "Pull-ups",
+        "Bicep Curls"
+      ]
+    },
+    {
+      "goal": "Toned",
+      "difficulty": "Beginner",
+      "duration": "30 minutes",
+      "intensity": "Medium",
+      "exercises": [
+        "Push-ups",
+        "Squats",
+        "Crunches",
+        "Triceps Dips",
+        "Plank"
+      ]
+    }
+  ]
+  
