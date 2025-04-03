@@ -1,34 +1,33 @@
+import React from 'react'
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Component from './components/Component';
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+function App() {
+  const signIn = React.useState(true);
+  return(
+    <Component.Container>
+      <Component.SignUpContainer signinIn={signIn}>
+        <Component.Form>
+          <Component.Title>Create Title</Component.Title>
+          <Component.Input type='text' placeholder='Name' />
+          <Component.Input type='email' placeholder='Email' />
+          <Component.Input type='password' placeholder='Password' />
+          <Component.Button>Sign Up</Component.Button>
+        </Component.Form>
+      </Component.SignUpContainer>
+
+      <Component.SignInContainer signinIn={signIn}>
+        <Component.Form>
+          <Component.Title>Sign In</Component.Title>
+          <Component.Input type='email' placeholder='Email' />
+          <Component.Input type='password' placeholder='Password' />
+          <Component.Anchor href='#'>Forgot Password</Component.Anchor>
+          <Component.Button>Sign In</Component.Button>
+        </Component.Form>
+      </Component.SignInContainer>
+    </Component.Container>
   )
 }
 

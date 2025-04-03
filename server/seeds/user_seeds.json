@@ -1,0 +1,69 @@
+[
+    {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "hashed_password_123",
+      "age": 28,
+      "height": 180,
+      "weight": 75,
+      "goalBodyType": "Lean",
+      "fitnessLevel": "Intermediate",
+      "createdAt": "2025-03-26T10:00:00.000Z"
+    },
+    {
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "password": "hashed_password_456",
+      "age": 32,
+      "height": 165,
+      "weight": 60,
+      "goalBodyType": "Toned",
+      "fitnessLevel": "Beginner",
+      "createdAt": "2025-03-26T11:00:00.000Z"
+    },
+    {
+      "name": "Michael Johnson",
+      "email": "michael.johnson@example.com",
+      "password": "hashed_password_789",
+      "age": 40,
+      "height": 175,
+      "weight": 85,
+      "goalBodyType": "Muscular",
+      "fitnessLevel": "Advanced",
+      "createdAt": "2025-03-26T12:00:00.000Z"
+    },
+    {
+      "name": "Emily Davis",
+      "email": "emily.davis@example.com",
+      "password": "hashed_password_321",
+      "age": 24,
+      "height": 170,
+      "weight": 55,
+      "goalBodyType": "Toned",
+      "fitnessLevel": "Intermediate",
+      "createdAt": "2025-03-26T13:00:00.000Z"
+    },
+    {
+      "name": "David Martinez",
+      "email": "david.martinez@example.com",
+      "password": "hashed_password_654",
+      "age": 35,
+      "height": 182,
+      "weight": 90,
+      "goalBodyType": "Bulk",
+      "fitnessLevel": "Advanced",
+      "createdAt": "2025-03-26T14:00:00.000Z"
+    },
+    {
+      "name": "Sarah Wilson",
+      "email": "sarah.wilson@example.com",
+      "password": "hashed_password_987",
+      "age": 29,
+      "height": 160,
+      "weight": 58,
+      "goalBodyType": "Lean",
+      "fitnessLevel": "Beginner",
+      "createdAt": "2025-03-26T15:00:00.000Z"
+    }
+  ]
+  
