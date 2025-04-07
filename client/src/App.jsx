@@ -5,7 +5,7 @@ import './App.css'
 
 
 function App() {
-  const signIn = React.useState(true);
+  const [signIn, toggle] = React.useState(true);
   return(
     <Component.Container>
       <Component.SignUpContainer signinIn={signIn}>
@@ -27,6 +27,49 @@ function App() {
           <Component.Button>Sign In</Component.Button>
         </Component.Form>
       </Component.SignInContainer>
+        
+
+      <Component.OverlayContainer signinIn={signIn}>
+       <Component.Overlay signinIn={signIn}>
+       <Component.LeftOverlayPanel signinIn={signIn}>
+       
+        <Component.Title>
+          Welcome Back!
+        </Component.Title>
+        <Component.Paragraph>
+          To see your next workout, please login using your user credentials!
+        </Component.Paragraph>
+        <Component.GhostButton onClick={()=>toggle(true)}>
+          Sign In
+        </Component.GhostButton>
+       </Component.LeftOverlayPanel>
+        
+       <Component.RightOverlayPanel signinIn={signIn}>
+        <Component.Title>
+          Get ready to sweat!
+        </Component.Title>
+        <Component.Paragraph>
+          Enter your details and begin your fitness journey.
+        </Component.Paragraph>
+          <Component.GhostButton onClick={()=>toggle(false)}>
+            Sign Up!
+          </Component.GhostButton>
+       </Component.RightOverlayPanel>
+      
+      
+       </Component.Overlay>  
+        
+      </Component.OverlayContainer> 
+
+      
+      
+      
+      
+
+
+
+
+
     </Component.Container>
   )
 }
