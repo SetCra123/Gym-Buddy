@@ -10,8 +10,8 @@ const {
 
 
 router.route('/').post(createExercise);
-router.route('/').get(getAllExercises);
-router.route('/').get(getExercise);
+router.route('/Exercises').get(getAllExercises);
+router.route('/currentExercise').get(getExercise);
 router.route('/:Id').delete(removeExercise);
 router.route('/:Id').put(updateExercise);
 

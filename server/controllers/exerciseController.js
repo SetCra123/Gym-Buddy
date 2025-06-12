@@ -4,8 +4,12 @@ module.exports = {
     //get all exercises
     async getAllExercises(req, res,) {
       try {
-        const exercises = await Exercise.find();
-        res.json(exercises);
+        const userId = req.user.id;
+        const allUserExcercises = await Exercise.find({ user: userId }).sort({ date: -1 });
+        res.json(allUserExcercises);
+        
+        //const allExercises = await Exercise.find();
+         //res.json(allExercises);
       } catch (err) {
         res.status(500).json(err);
       }
@@ -13,14 +17,14 @@ module.exports = {
     //get single exercise
     async getExercise(req, res) {
       try {
-        const exercise = await Exercise.findOne({ _id: req.params.exerciseId })
+        const currentExercise = await Exercise.findOne({ _id: req.params.exerciseId })
         .select('-__v');
 
-        if (!exercise)  {
+        if (!currentExercise)  {
             return res.status(404).json({message: 'No exercise with that ID'});
         }
 
-        res.json(exercise);
+        res.json(currentExercise);
       } catch (err) {
         res.status(500).json(err);
       } 

@@ -40,7 +40,7 @@ export const login = (userData) => {
 
 export const getAllExcercises = (userData) => {
     return fetch('/api/users/login', {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
