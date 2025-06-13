@@ -32,10 +32,23 @@ module.exports = {
     //create new exercise
     async createExercise(req, res) {
       try {
-        const dbExerciseData = await Exercise.create(req.body);
-        res.json(dbExerciseData);
-      } catch (err) {
-        res.status(500).json(err);
+        const userId = req.user.id;
+        // const goal = req.user.goalBodyType;
+      
+        // const workout = generateWorkoutForGoal(goal);
+        const newExercise = await Exercise.create({
+          user: userId,
+          exercises: workout,
+          date: new Date(),
+        });
+      
+        res.json(newExercise);
+      
+      
+        //   const dbExerciseData = await Exercise.create(req.body);
+      //   res.json(dbExerciseData);
+       } catch (err) {
+         res.status(500).json(err);
       } 
     },
     //update an exercise

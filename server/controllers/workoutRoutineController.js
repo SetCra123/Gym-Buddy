@@ -1,6 +1,6 @@
 const WorkoutRoutine = require('../models/WorkoutRoutine');
 const User = require('../models/User');
-const Workout = require('../models/workout_routines');
+
 
 module.exports = {
     async createNewWorkoutRoutine(req, res,) {
@@ -31,7 +31,7 @@ module.exports = {
   
     async getAllworkoutRoutines(req, res,) {
       try {
-        const workoutRoutine = await Workout.find().populate('user').populate('exercises');
+        const workoutRoutine = await WorkoutRoutine.find().populate('user').populate('exercises');
         console.log(workoutRoutine);
   
         res.json(workoutRoutine);

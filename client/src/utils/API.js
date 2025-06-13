@@ -25,7 +25,7 @@ export const createUser = (userData) => {
 };
 
 export const login = (userData) => {
-    return fetch('/api/users/login', {
+    return fetch('/api/user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -39,8 +39,38 @@ export const login = (userData) => {
 //EXERCISE ROUTES
 
 export const getAllExcercises = (userData) => {
-    return fetch('/api/users/login', {
+    return fetch('/api/exercises/', {
         method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    });
+};
+
+export const getWorkoutRoutine = (userData) => {
+    return fetch('/api/workout-routines/:Id', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    });
+};
+
+export const getAllWorkoutRoutines = (userData) => {
+    return fetch('/api/workout-routines/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    });
+};
+
+export const createNewWorkoutRoutine = (userData) => {
+    return fetch('/api/workout-routines/', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },

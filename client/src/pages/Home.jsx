@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import './home.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAllExcercises } from '../utils/API';
+import { getAllExcercises,
+         
+ } from '../utils/API';
 
 const Home = () => {
 
