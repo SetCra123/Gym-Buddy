@@ -2,7 +2,7 @@
     {
       "goal": "Lean",
       "difficulty": "Beginner",
-      "duration": "30 minutes",
+      "duration": 30,
       "intensity": "Medium",
       "exercises": [
         "Push-ups",
@@ -15,7 +15,7 @@
     {
       "goal": "Muscular",
       "difficulty": "Intermediate",
-      "duration": "45 minutes",
+      "duration": 45,
       "intensity": "High",
       "exercises": [
         "Bench Press",
@@ -28,7 +28,7 @@
     {
       "goal": "Bulk",
       "difficulty": "Advanced",
-      "duration": "60 minutes",
+      "duration": 60,
       "intensity": "High",
       "exercises": [
         "Bench Press",
@@ -41,7 +41,7 @@
     {
       "goal": "Toned",
       "difficulty": "Beginner",
-      "duration": "30 minutes",
+      "duration": 30,
       "intensity": "Medium",
       "exercises": [
         "Push-ups",

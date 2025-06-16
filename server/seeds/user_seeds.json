@@ -1,6 +1,6 @@
 [
     {
-      "name": "John Doe",
+      "username": "John Doe",
       "email": "john.doe@example.com",
       "password": "hashed_password_123",
       "age": 28,
@@ -11,7 +11,7 @@
       "createdAt": "2025-03-26T10:00:00.000Z"
     },
     {
-      "name": "Jane Smith",
+      "username": "Jane Smith",
       "email": "jane.smith@example.com",
       "password": "hashed_password_456",
       "age": 32,
@@ -22,7 +22,7 @@
       "createdAt": "2025-03-26T11:00:00.000Z"
     },
     {
-      "name": "Michael Johnson",
+      "username": "Michael Johnson",
       "email": "michael.johnson@example.com",
       "password": "hashed_password_789",
       "age": 40,
@@ -33,7 +33,7 @@
       "createdAt": "2025-03-26T12:00:00.000Z"
     },
     {
-      "name": "Emily Davis",
+      "username": "Emily Davis",
       "email": "emily.davis@example.com",
       "password": "hashed_password_321",
       "age": 24,
@@ -44,7 +44,7 @@
       "createdAt": "2025-03-26T13:00:00.000Z"
     },
     {
-      "name": "David Martinez",
+      "username": "David Martinez",
       "email": "david.martinez@example.com",
       "password": "hashed_password_654",
       "age": 35,
@@ -55,7 +55,7 @@
       "createdAt": "2025-03-26T14:00:00.000Z"
     },
     {
-      "name": "Sarah Wilson",
+      "username": "Sarah Wilson",
       "email": "sarah.wilson@example.com",
       "password": "hashed_password_987",
       "age": 29,

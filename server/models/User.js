@@ -7,16 +7,16 @@ const userSchema = new Schema (
     {
       username: {
         type: String,
+        // required: true,
+      },
+      email: {
+        type: String,
         required: true,
       },
-    //   email: {
-    //     type: String,
-    //     required: true,
-    //   },
-    //   password: {
-    //     type: String,
-    //     required: true,
-    //   },
+      password: {
+        type: String,
+        required: true,
+      },
       height: [{
         type: String,
         ref: "Height",
@@ -27,11 +27,12 @@ const userSchema = new Schema (
         ref: "Weight",
         required: true,
       }],
-    //   current_body_type: [{
-    //     type: Schema.Types.ObjectID,
-    //     ref: "Curret_Body_Type",
-    //     required: true,
-    //   }],
+      fitness_level: [{
+        type: Schema.Types.ObjectID,
+        ref: "Curret_Body_Type",
+        required: true,
+        enum: ['Beginner', 'Intermedite', 'Advanced']
+      }],
       goal: [{
         type: String,
         ref: "Goal",

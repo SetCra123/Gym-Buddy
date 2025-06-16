@@ -7,7 +7,7 @@ const workoutRoutineSchema = new Schema (
      user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+      //   required: true
      },
      excercises: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -15,12 +15,12 @@ const workoutRoutineSchema = new Schema (
      }],
      duration: {
         type: Number,
-        required: true
+      //   required: true
      },
      intensity: {
         type: String, 
         enum: ['Low', 'Medium', 'High'],
-        required: true
+      //   required: true
      },
      diffifculty: {
       type: String
