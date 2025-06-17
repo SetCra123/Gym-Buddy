@@ -5,7 +5,7 @@ const User = require('../models/User');
 module.exports = {
     async createNewWorkoutRoutine(req, res,) {
       try {
-        const { userId, exercises, duration, intensity } = req.body;
+        const { userId, exercises, duration, intensity, difficulty, goal } = req.body;
         console.log(req.body);
 
         const newWorkoutRoutine = await WorkoutRoutine.create({

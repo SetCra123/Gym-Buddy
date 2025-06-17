@@ -7,7 +7,7 @@ const userSchema = new Schema (
     {
       username: {
         type: String,
-        // required: true,
+        required: true,
       },
       email: {
         type: String,
@@ -39,6 +39,10 @@ const userSchema = new Schema (
         required: true,
         enum: ['Lean', 'Muscular', 'Bulk', 'Toned']
       }],
+      workout_routine: [{
+        type: Schema.Types.ObjectID,
+        ref: "WorkoutRoutine"
+      }]
     //   createdAt: {
     //     type: Date,
     //     default: Date.now(),
