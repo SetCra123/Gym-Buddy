@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './home.css';
+// import './home.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllExcercises,
          getWorkoutRoutine,
@@ -63,7 +63,7 @@ return (
         <button onClick={generateNewWorkout}>Generate New Workout</button>
       </section>
 
-      </section>
+      
         
     </div>
 )
