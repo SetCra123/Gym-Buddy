@@ -1,0 +1,26 @@
+.form-container {
+    padding: 20px;
+    border: 1px solid #ddd; 
+    margin: 20px;
+    background-color: #36013f;
+    opacity: 0.8;
+    transition: background-color 0.3s ease; 
+}
+
+/* d-flex 
+justify-content-center 
+align-items-center 
+mt-5 */
+
+.form-div {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 20% 10% 20% 0%; 
+}
+
+.mb-3 {
+    padding: 10%;
+}

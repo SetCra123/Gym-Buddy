@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Button, Alert } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
-// import './login.css';
+import '../login.css';
 import { login } from '../utils/API';
 import Auth from '../utils/auth';
 
@@ -53,7 +53,7 @@ export default function Login() {
 
     return (
         <>
-            <div className="d-flex justify-content-center align-items-center mt-5">
+            <div className="form-container d-flex justify-content-center align-items-center mt-5">
                 <div className="form-div bg-white p-3 rounded border">
                     <h2>Login</h2>
                     <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
