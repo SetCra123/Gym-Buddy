@@ -2,9 +2,10 @@
     padding: 20px;
     border: 1px solid #ddd; 
     margin: 20px;
-    background-color: #36013f;
+    /* background-color: #36013f; */
     opacity: 0.8;
     transition: background-color 0.3s ease; 
+    background-image: ('../images/cover1.png');
 }
 
 /* d-flex 
@@ -19,6 +20,7 @@ mt-5 */
     align-items: center;
     justify-content: center;
     padding: 20% 10% 20% 0%; 
+    background-image: ('../public/images/cover1.png');
 }
 
 .mb-3 {
