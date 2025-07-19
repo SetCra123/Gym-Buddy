@@ -55,7 +55,8 @@ export default function Login() {
         <>
             <div className="form-container d-flex justify-content-center align-items-center mt-5">
                 <div className="form-div bg-white p-3 rounded border">
-                    <h2>Login</h2>
+                    <h2>Gym Buddy</h2>
+                    <h3>Login to get started now!</h3>
                     <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
                             Something went wrong with your login credentials!
