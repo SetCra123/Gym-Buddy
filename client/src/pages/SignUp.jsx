@@ -56,8 +56,9 @@ export default function Signup() {
     return (
         <>
             <div className="d-flex justify-content-center align-items-center mt-5">
-                <div className="bg-white p-3 rounded w-25 border">
-                    <h2>Sign-up</h2>
+                <div className="form-div bg-white p-3 rounded w-25 border">
+                    <h2>Gym Buddy</h2>
+                    <h3>Create an account and get a custom workout!</h3>
                     <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant="danger">
                             Something went wrong with your sign-up!
