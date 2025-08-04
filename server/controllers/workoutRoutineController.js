@@ -60,7 +60,7 @@ module.exports = {
     //remove item
     async removeworkoutRoutine(req, res) {
       try {
-        const workoutRoutine = await WorkoutRoutine.findOneAndRemove({ _id: req.params.itemId });
+        const workoutRoutine = await WorkoutRoutine.findOneAndRemove({ _id: req.params.workoutRoutineId });
   
         if (!workoutRoutine) {
           return res.status(404).json({ message: 'No item with this id!' });

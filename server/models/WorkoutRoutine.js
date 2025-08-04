@@ -9,10 +9,12 @@ const workoutRoutineSchema = new Schema (
         ref: 'User',
       //   required: true
      },
-     excercises: [{
+     excercises: [
+      {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Excercise'
-     }],
+     }
+   ],
      duration: {
         type: Number,
       //   required: true

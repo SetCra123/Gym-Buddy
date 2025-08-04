@@ -14,14 +14,25 @@ export const getUsers = (token) => {
 };
 
 
-export const createUser = (userData) => {
-    return fetch('/api/users', {
+export const createUser =  async (userData) => {
+    try {
+        const response = await fetch('/api/users/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
     });
+
+    const data = await response.json();
+        if (!response.ok){
+            throw new Error("Signup failed, please try again.");
+        }
+        return data
+    } catch(err){
+        console.log(err);
+        
+    }
 };
 
 export const login = (userData) => {
@@ -38,35 +49,38 @@ export const login = (userData) => {
 
 //EXERCISE ROUTES
 
-export const getAllExcercises = (userData) => {
-    return fetch('/api/exercises/', {
+// export const getAllExcercises = (userData) => {
+//     return fetch('/api/exercises/', {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(userData),
+//     });
+// };
+
+export const getWorkoutRoutine = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const data = await fetch(`/api/workout-routines/${user._id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
+        }
+        
     });
+    return data;
 };
 
-export const getWorkoutRoutine = (userData) => {
-    return fetch('/api/workout-routines/:Id', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
-};
-
-export const getAllWorkoutRoutines = (userData) => {
-    return fetch('/api/workout-routines/', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
-};
+// export const getAllWorkoutRoutines = (userData) => {
+//     return fetch('/api/workout-routines/', {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(userData),
+//     });
+// };
 
 export const createNewWorkoutRoutine = (userData) => {
     return fetch('/api/workout-routines/', {
