@@ -62,7 +62,7 @@ export const login = (userData) => {
 export const getWorkoutRoutine = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
 
-    const data = await fetch(`/api/workout-routines/${user._id}`, {
+    const data = await fetch(`/api/workout-routines/:Id${user._id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

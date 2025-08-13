@@ -1,5 +1,6 @@
 [
     {
+      "id": 1,
       "goal": "Lean",
       "difficulty": "Beginner",
       "duration": 30,
@@ -13,6 +14,7 @@
       ]
     },
     {
+      "id": 2,
       "goal": "Muscular",
       "difficulty": "Intermediate",
       "duration": 45,
@@ -26,6 +28,7 @@
       ]
     },
     {
+      "id": 4,
       "goal": "Bulk",
       "difficulty": "Advanced",
       "duration": 60,
@@ -39,6 +42,7 @@
       ]
     },
     {
+      "id": 5,
       "goal": "Toned",
       "difficulty": "Beginner",
       "duration": 30,

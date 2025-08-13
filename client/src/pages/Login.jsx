@@ -53,8 +53,8 @@ export default function Login() {
 
     return (
         <>
-            <div className="form-container d-flex justify-content-center align-items-center mt-5">
-                <div className="form-div bg-white p-3 rounded border">
+            <div className='d-flex justify-content-center align-items-center bg-secondary vh-100'>
+                <div className='bg-white p-3 rounded w-25'>
                     <h2>Gym Buddy</h2>
                     <h3>Login to get started now!</h3>
                     <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
