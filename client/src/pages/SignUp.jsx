@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from 'react-bootstrap';
 
 import { createUser } from '../utils/API';
@@ -12,6 +12,7 @@ export default function Signup() {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -31,6 +32,7 @@ export default function Signup() {
     try {
       const response = await createUser(userFormData);
       Auth.login(response.token);
+      navigate("profile-setup");
       showAlert(false);
       setUserFormData({ username:"", email:"", password:"" });
 
