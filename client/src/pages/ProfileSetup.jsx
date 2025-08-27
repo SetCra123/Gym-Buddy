@@ -9,7 +9,8 @@ export default function ProfileSetup() {
     age: "",
     height: "",
     weight: "",
-    goal: ""
+    goal: "",
+    fitness_type: ""
   });
   const [showAlert, setShowAlert] = useState(false);
 
@@ -93,9 +94,10 @@ export default function ProfileSetup() {
               required
             >
               <option value="">-- Select your goal --</option>
-              <option value="lose_weight">Lose Weight</option>
-              <option value="gain_muscle">Gain Muscle</option>
-              <option value="maintain">Maintain Fitness</option>
+              <option value="toned">Toned</option>
+              <option value="muscular">Muscular</option>
+              <option value="bulk">Bulk</option>
+              <option value="lean">Bulk</option>
             </Form.Select>
           </Form.Group>
 

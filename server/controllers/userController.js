@@ -79,5 +79,31 @@ module.exports = {
         } catch (err) {
             res.status(500).json(err);
         }
-    }
+    },
+
+
+     async updateUserProfile  (req, res)  {
+        try {
+          // req.user comes from authMiddleware (decoded JWT)
+          const userId = req.user._id;
+      
+          // Allowed fields from your model
+          const { age, height, weight, goal, fitness_type } = req.body;
+      
+          const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { age, height, weight, goal, fitness_type },
+            { new: true, runValidators: true }
+          );
+      
+          if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+          }
+      
+          res.json(updatedUser);
+        } catch (err) {
+          console.error(err);
+          res.status(500).json({ message: "Error updating profile", error: err.message });
+        }
+      }
 };
