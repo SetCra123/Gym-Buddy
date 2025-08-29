@@ -101,6 +101,21 @@ export default function ProfileSetup() {
             </Form.Select>
           </Form.Group>
 
+          <Form.Group className="mb-3">
+            <Form.Label>Fitness Level</Form.Label>
+            <Form.Select
+              name="fitness-type"
+              value={profileData.fitness_type}
+              onChange={handleChange}
+              required
+            >
+              <option value="">-- Select your fitness level --</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </Form.Select>
+          </Form.Group>
+
           <Button type="submit" className="btn btn-success w-100">
             Save Profile
           </Button>

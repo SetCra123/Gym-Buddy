@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from 'react-bootstrap';
 
 import { createUser } from '../utils/API';
@@ -32,7 +32,7 @@ export default function Signup() {
     try {
       const response = await createUser(userFormData);
       Auth.login(response.token);
-      navigate("profile-setup");
+      navigate('profile-update');
       showAlert(false);
       setUserFormData({ username:"", email:"", password:"" });
 

@@ -60,7 +60,17 @@ export const login = async (userData) => {
       body: JSON.stringify(userData),
     }, "Failed to create new workout");
   };
-//EXERCISE ROUTES
+
+
+  export const updateUserProfile = async () => {
+    return apiRequest('/api/users/me', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json'},
+    }, "Failed to create new workout");
+  };
+
+
+  //EXERCISE ROUTES
 
 // export const getAllExcercises = (userData) => {
 //     return fetch('/api/exercises/', {

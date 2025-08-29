@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form, Button, Alert } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import '../login.css';
 import { login } from '../utils/API';
@@ -10,7 +10,7 @@ export default function Login() {
     const [userFormData, setUserFormData] = useState({ email: '', password: '' });
     const [validated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-
+    const navigate =  useNavigate();
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setUserFormData({ ...userFormData, [name]: value });
@@ -27,16 +27,17 @@ export default function Login() {
         }
 
         try {
-            const response = await login(userFormData);
+            const { token, user } = await login(userFormData);
 
-            if (!response.ok) {
+            if (!token || !user) {
                 throw new Error('something went wrong!');
             }
 
-            const { token, user } = await response.json();
-            localStorage.setItem('user', user);
-            console.log(user);
-            Auth.login(token, user);
+            Auth.login(token)
+            localStorage.setItem('user', JSON.stringify(user));
+            console.log("Logged in user", user);
+            navigate("/home");            
+
         } catch (err) {
             console.error(err);
             setShowAlert(true);
