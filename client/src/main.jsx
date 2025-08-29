@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Signup from './pages/SignUp';
 import ProfileSetup from './pages/ProfileSetup';
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 const router = createBrowserRouter([
   {
@@ -17,20 +18,29 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        index: true,
-        element: <Home />
-      },
+        index: true, 
+        path: '/signup',
+        element: <Signup />
+      },     
       {
         path: '/login',
         element: <Login />
       },
       {
-        path: '/signup',
-        element: <Signup />
-      },
-      {
         path: '/profile-update',
         element: <ProfileSetup />
+      },
+      {
+        element: <ProtectedRoutes requiresProfile={true} />,
+        children: [
+          { path: '/home', element: <Home /> },
+        ]
+      },
+      {
+        element: <ProtectedRoutes requiresProfile={false} />, // wrapper for "profile may be incomplete"
+        children: [
+          { path: '/profile-update', element: <ProfileSetup /> },
+        ]
       }
     ]
   }
