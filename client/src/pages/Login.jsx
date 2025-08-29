@@ -35,6 +35,14 @@ export default function Login() {
 
             Auth.login(token)
             localStorage.setItem('user', JSON.stringify(user));
+            
+            const isProfileComplete = user.age && user.height && user.goal && user.weight && user.fitness_type; 
+
+                if (isProfileComplete) {
+                navigate("/home");
+                } else {
+                navigate("/profile-update");
+                }
             console.log("Logged in user", user);
             navigate("/home");            
 
