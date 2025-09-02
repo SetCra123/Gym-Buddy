@@ -97,14 +97,14 @@ export default function ProfileSetup() {
               <option value="toned">Toned</option>
               <option value="muscular">Muscular</option>
               <option value="bulk">Bulk</option>
-              <option value="lean">Bulk</option>
+              <option value="lean">Lean</option>
             </Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Fitness Level</Form.Label>
             <Form.Select
-              name="fitness-type"
+              name="fitness_type"
               value={profileData.fitness_type}
               onChange={handleChange}
               required

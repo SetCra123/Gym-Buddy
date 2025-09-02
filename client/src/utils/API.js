@@ -43,14 +43,16 @@ export const login = async (userData) => {
   };
   
   // WORKOUT ROUTES
-  export const getWorkoutRoutine = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user?._id) throw new Error('No user ID found in localStorage');
+
+
+  export const getUserWorkoutRoutine = async (userId) => {
+    const res = await fetch(`/api/workout-routines/user/${userId}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
   
-    return apiRequest(`/api/workout-routines/${user._id}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    }, "Failed to fetch workout routine");
+    if (!res.ok) throw new Error("Failed to fetch workout routine");
+    return res.json();
   };
   
   export const createNewWorkoutRoutine = async (userData) => {
@@ -65,7 +67,9 @@ export const login = async (userData) => {
   export const updateUserProfile = async () => {
     return apiRequest('/api/users/me', {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('id_token')}`, // token from signup/login
+      },
     }, "Failed to create new workout");
   };
 

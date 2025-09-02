@@ -7,13 +7,13 @@ export default function ProtectedRoute({ requiresProfile }) {
     return <Navigate to="/login" replace />;
   }
 
-  // Adjust this check based on your user model
+  
   const isProfileComplete = user.age && user.height && user.goal && user.weight && user.fitness_type; 
 
   if (requiresProfile && !isProfileComplete) {
     return <Navigate to="/profile-update" replace />;
   }
 
-  // ✅ Render nested routes (via Outlet)
+  
   return <Outlet />;
 }

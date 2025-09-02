@@ -4,14 +4,15 @@ const {
   getworkoutRoutine,
   getAllworkoutRoutines,
   removeworkoutRoutine,
+  getUserWorkout,
 } = require('../../controllers/workoutRoutineController');
 
 
 
 router.route('/').post(createNewWorkoutRoutine);
 router.route('/').get(getAllworkoutRoutines);
-router.route('/:Id').get(getworkoutRoutine);
-router.route('/:Id').delete(removeworkoutRoutine);
+router.route('/user/:userId').get(getworkoutRoutine, getUserWorkout)
+                    .delete(removeworkoutRoutine);
 
 
 

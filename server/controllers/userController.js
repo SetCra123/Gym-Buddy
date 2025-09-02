@@ -82,28 +82,18 @@ module.exports = {
     },
 
 
-     async updateUserProfile  (req, res)  {
+    async updateUserProfile({ user, body }, res) {
         try {
-          // req.user comes from authMiddleware (decoded JWT)
-          const userId = req.user._id;
-      
-          // Allowed fields from your model
-          const { age, height, weight, goal, fitness_type } = req.body;
-      
           const updatedUser = await User.findByIdAndUpdate(
-            userId,
-            { age, height, weight, goal, fitness_type },
+            user._id,
+            { $set: body },
             { new: true, runValidators: true }
           );
-      
-          if (!updatedUser) {
-            return res.status(404).json({ message: "User not found" });
-          }
       
           res.json(updatedUser);
         } catch (err) {
           console.error(err);
-          res.status(500).json({ message: "Error updating profile", error: err.message });
+          res.status(400).json({ message: 'Failed to update profile' });
         }
       }
 };

@@ -1,16 +1,12 @@
-const apiRequest = async (url, options = {}, errorMessage = "Request failed") => {
-    try {
-        const res = await fetch(url, options);
-        if (!res.ok) {
-        throw new Error(message);
-        }
-        return res.json();
-
-    } catch(err) {
-      console.error("API Error", err);
-      throw err;
+export default async function apiRequest(url, options, errorMessage) {
+  try {
+    const res = await fetch(url, options);
+    if (!res.ok) {
+      throw new Error(errorMessage || `Request failed with status ${res.status}`);
     }
-};
-
-
-export default apiRequest;
+    return await res.json();
+  } catch (err) {
+    console.error("API Error", err);
+    throw err;
+  }
+}

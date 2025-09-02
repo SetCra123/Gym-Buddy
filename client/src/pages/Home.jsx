@@ -1,34 +1,49 @@
-import { useState, useEffect } from 'react';
-import CurrntWkOut from '../components/CurrntWkOut';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getUsers, getUserWorkoutRoutine } from "../utils/API";
+import ProfileCard from "../components/ProfileCard";
+import WorkoutCard from "../components/WorkoutCard";
 
-const Home = () => {
-  
-  const [error, setError] = useState(null);
+export default function Home() {
+  const [user, setUser] = useState(null);
+  const [workout, setWorkout] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  const handleCreateWorkout = async () => {
-    try {
-      const newWorkout = await createNewWorkoutRoutine({ name: "Custom Plan" });
-      console.log("Created new workout:", newWorkout);
-      // optional: refresh workouts after creation
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-  
-  
-  
-  
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("id_token");
+        const userData = await getUsers(token);
+        setUser(userData);
+
+        // If profile incomplete, redirect
+        if (!userData.goal || !userData.fitnessLevel) {
+          navigate("/profile-update");
+          return;
+        }
+
+        // Fetch workout tailored to fitness level + goal
+        const workoutData = await getUserWorkoutRoutine(userData.fitnessLevel, userData.goal);
+        setWorkout(workoutData);
+
+      } catch (err) {
+        console.error("Error fetching dashboard:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
+
+  if (loading) return <h3>Loading your dashboard...</h3>;
+
   return (
-    <div className="homepage bg-light vh-100 p-4">
-      <h1 className="text-center mb-4">Welcome to Your Workout</h1>
-
-      <section className="current-workout">
-        <CurrntWkOut />
-        <button onClick={handleCreateWorkout}>Generate New Workout</button>
-      </section>
+    <div className="container mt-5">
+      <h1>Welcome, <strong>{user?.username}</strong> 👋</h1>
+      <ProfileCard user={user} />
+      <WorkoutCard workout={workout} />
     </div>
   );
-};
-
-export default Home;
+}

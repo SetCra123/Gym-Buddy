@@ -17,34 +17,35 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <Error />,
     children: [
+      // Default (landing page) -> maybe Home if logged in, or Login if not
       {
-        index: true, 
-        path: '/signup',
-        element: <Signup />
-      },     
+        index: true,
+        element: <Home />   // 👈 Home at `/`
+      },
       {
-        path: '/login',
+        path: 'login',
         element: <Login />
       },
       {
-        path: '/profile-update',
-        element: <ProfileSetup />
+        path: 'signup',
+        element: <Signup />
       },
       {
         element: <ProtectedRoutes requiresProfile={true} />,
         children: [
-          { path: '/home', element: <Home /> },
+          { path: 'home', element: <Home /> },   // 👈 `/home` also works
         ]
       },
       {
-        element: <ProtectedRoutes requiresProfile={false} />, // wrapper for "profile may be incomplete"
+        element: <ProtectedRoutes requiresProfile={false} />,
         children: [
-          { path: '/profile-update', element: <ProfileSetup /> },
+          { path: 'profile-update', element: <ProfileSetup /> }, // 👈 only accessible if profile incomplete
         ]
       }
     ]
   }
-])
+]);
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <RouterProvider router={router} />
