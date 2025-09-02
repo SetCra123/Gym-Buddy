@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const WorkoutRoutine = require('../models/WorkoutRoutine');
 // import sign token function from auth
 const { signToken } = require('../utils/auth');
 
@@ -89,9 +90,35 @@ module.exports = {
             { $set: body },
             { new: true, runValidators: true }
           );
+          
       
           res.json(updatedUser);
-        } catch (err) {
+        
+          const { userId, exercises, duration, intensity, difficulty, goal } = req.body;
+          console.log(req.body);
+  
+          const updatedWorkoutRoutine = await WorkoutRoutine.create({
+              userId,
+              exercises,
+              duration,
+              intensity,
+              difficulty,
+              goal,
+  
+  
+          });
+  
+          await updatedWorkoutRoutine.save();
+  
+          await User.findByIdAndUpdate(userId, { $push: { workoutRoutine: updatedWorkoutRoutine._id } });
+    
+          res.status(201).json(updatedWorkoutRoutine);
+        
+        
+        } 
+       
+        
+        catch (err) {
           console.error(err);
           res.status(400).json({ message: 'Failed to update profile' });
         }

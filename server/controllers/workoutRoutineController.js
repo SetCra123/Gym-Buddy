@@ -40,7 +40,7 @@ module.exports = {
       }
     },
   
-    async getworkoutRoutine(req, res) {
+    async getUserWorkoutRoutine(req, res) {
       try {
         const workoutRoutine = await WorkoutRoutine.findOne({ _id: req.params.workoutRoutineId })
           .select('-__v');
