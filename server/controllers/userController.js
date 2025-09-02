@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const WorkoutRoutine = require('../models/WorkoutRoutine');
+const Exercise = require('../models/Exercise');
+
 // import sign token function from auth
 const { signToken } = require('../utils/auth');
 
@@ -83,44 +85,59 @@ module.exports = {
     },
 
 
-    async updateUserProfile({ user, body }, res) {
+    async updateUserProfile(req, res) {
         try {
-          const updatedUser = await User.findByIdAndUpdate(
-            user._id,
-            { $set: body },
-            { new: true, runValidators: true }
-          );
-          
-      
-          res.json(updatedUser);
-        
-          const { userId, exercises, duration, intensity, difficulty, goal } = req.body;
+          const userId = req.user._id;
+          const { age, height, weight, goal, fitness_type } = req.body;
           console.log(req.body);
   
-          const updatedWorkoutRoutine = await WorkoutRoutine.create({
-              userId,
-              exercises,
-              duration,
-              intensity,
-              difficulty,
+          const updatedUser = await findByIDAndUpdate(
+            userId,
+            {
+              age,
+              height,
+              weight,
+              fitness_type,
               goal,
+            }, {
+                new: true
+            });
   
+            if (!updatedUser) {
+                return res.status(404).json({message: "User not found"});
+            }
   
-          });
-  
-          await updatedWorkoutRoutine.save();
-  
-          await User.findByIdAndUpdate(userId, { $push: { workoutRoutine: updatedWorkoutRoutine._id } });
+            if(!updatedUser.workoutRoutine) {
+                const userExcercises = await Exercise.find({
+                    difficulty: fitness_type,
+                    goal: goal
+                }).limit(5);
+            
+            if (!userExercises) {
+                 return res.status(400).json({message: "No matching exercises found."})
+            }
+
+            const newWorkout = await WorkoutRoutine.create({
+                userId,
+                goal,
+                difficulty: fitness_type,
+                duration: 45, 
+                intensity: "medium",
+                exercises: userExercises.map(ex => ex._id),
+            });
     
-          res.status(201).json(updatedWorkoutRoutine);
-        
-        
+           
+         updatedUser.workoutRoutine.push(newWorkout._id);  
+         await updatedUser.save(); 
         } 
        
-        
+        res.json(updatedUser);
+
+        }
+
         catch (err) {
           console.error(err);
           res.status(400).json({ message: 'Failed to update profile' });
         }
-      }
+      },
 };
