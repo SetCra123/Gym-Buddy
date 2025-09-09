@@ -108,21 +108,23 @@ module.exports = {
             }
   
             if(!updatedUser.workoutRoutine) {
-                const userExcercises = await Exercise.find({
+                const userExercises = await Exercise.find({
                     difficulty: fitness_type,
                     goal: goal
                 }).limit(5);
+                console.log(userExercises);
             
-            if (!userExercises) {
-                 return res.status(400).json({message: "No matching exercises found."})
-            }
+                if (!userExercises || userExercises.length === 0) {
+                    console.warn("No exercises found for", { goal, fitness_type });
+                    return res.status(400).json({ message: "No matching exercises found." });
+                  }
 
             const newWorkout = await WorkoutRoutine.create({
                 userId,
                 goal,
-                difficulty: fitness_type,
-                duration: 45, 
-                intensity: "medium",
+                difficulty,
+                duration: duration, 
+                intensity: intensity,
                 exercises: userExercises.map(ex => ex._id),
             });
     

@@ -32,11 +32,14 @@ class AuthService {
     return localStorage.getItem('id_token');
   }
 
-  login(idToken, user) {
-    // Saves user token to localStorage
+  login(idToken, user, redirectPath = '/home') {
+    // Save user token to localStorage
     localStorage.setItem('id_token', idToken);
+    if (user) {
+       localStorage.setItem('user', JSON.stringify(user));
+    }
     localStorage.setItem('user', JSON.stringify(user));
-    window.location.assign('/');
+    window.location.assign(redirectPath);
   }
 
   logout() {
