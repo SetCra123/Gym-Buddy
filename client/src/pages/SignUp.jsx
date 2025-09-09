@@ -31,8 +31,7 @@ export default function Signup() {
 
     try {
       const response = await createUser(userFormData);
-      Auth.login(response.token);
-      navigate('/profile-update');
+      Auth.login(response.token, data.user, '/profile-update');
       showAlert(false);
       setUserFormData({ username:"", email:"", password:"" });
 

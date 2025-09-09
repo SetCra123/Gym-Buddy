@@ -1,19 +1,20 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 export default function ProtectedRoute({ requiresProfile }) {
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
+  let user = null;
+  try {
+    const storedUser = localStorage.getItem('user');
+    user = storedUser ? JSON.parse(storedUser) : null;
+  } catch (error) {
+    console.error("Error parsing user from localStorage:", error);
   }
 
-  
-  const isProfileComplete = user.age && user.height && user.goal && user.weight && user.fitness_type; 
+  if (!user) return <Navigate to="/login" />;
 
-  if (requiresProfile && !isProfileComplete) {
-    return <Navigate to="/profile-update" replace />;
+  // check if user has completed profile
+  if (requiresProfile && !user.profileComplete) {
+    return <Navigate to="/profile-update" />;
   }
 
-  
   return <Outlet />;
 }
