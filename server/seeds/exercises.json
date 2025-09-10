@@ -1,93 +1,98 @@
 [
-    {
-      "name": "Push-ups",
-      "muscleGroup": "Chest",
-      "difficulty": "Beginner",
-      "equipment": "Bodyweight",
-      "reps": "10-15",
-      "sets": "3",
-      "duration": "30s",
-      "caloriesBurned": 50
-    },
-    {
-      "name": "Bench Press",
-      "muscleGroup": "Chest",
-      "difficulty": "Intermediate",
-      "equipment": "Barbell",
-      "reps": "8-12",
-      "sets": "4",
-      "duration": "45s",
-      "caloriesBurned": 70
-    },
-    {
-      "name": "Squats",
-      "muscleGroup": "Legs",
-      "difficulty": "Beginner",
-      "equipment": "Bodyweight",
-      "reps": "12-15",
-      "sets": "3",
-      "duration": "30s",
-      "caloriesBurned": 60
-    },
-    {
-      "name": "Deadlifts",
-      "muscleGroup": "Legs",
-      "difficulty": "Advanced",
-      "equipment": "Barbell",
-      "reps": "5-8",
-      "sets": "4",
-      "duration": "60s",
-      "caloriesBurned": 100
-    },
-    {
-      "name": "Pull-ups",
-      "muscleGroup": "Back",
-      "difficulty": "Intermediate",
-      "equipment": "Pull-up Bar",
-      "reps": "8-12",
-      "sets": "3",
-      "duration": "30s",
-      "caloriesBurned": 60
-    },
-    {
-      "name": "Bicep Curls",
-      "muscleGroup": "Arms",
-      "difficulty": "Beginner",
-      "equipment": "Dumbbells",
-      "reps": "10-15",
-      "sets": "3",
-      "duration": "30s",
-      "caloriesBurned": 40
-    },
-    {
-      "name": "Triceps Dips",
-      "muscleGroup": "Arms",
-      "difficulty": "Intermediate",
-      "equipment": "Parallel Bars",
-      "reps": "8-12",
-      "sets": "3",
-      "duration": "30s",
-      "caloriesBurned": 50
-    },
-    {
-      "name": "Plank",
-      "muscleGroup": "Core",
-      "difficulty": "Beginner",
-      "equipment": "Bodyweight",
-      "reps": "1",
-      "sets": "3",
-      "duration": "60s",
-      "caloriesBurned": 30
-    },
-    {
-      "name": "Crunches",
-      "muscleGroup": "Core",
-      "difficulty": "Beginner",
-      "equipment": "Bodyweight",
-      "reps": "15-20",
-      "sets": "3",
-      "duration": "30s",
-      "caloriesBurned": 40
-    }
-  ]
-  
+  {
+    "name": "Push-Ups",
+    "muscleGroup": "Chest",
+    "fitness_type": "Beginner",
+    "equipment": "Bodyweight",
+    "description": "A classic bodyweight exercise targeting chest, triceps, and core.",
+    "reps": "10-15",
+    "sets": "3",
+    "duration": "5 min",
+    "caloriesBurned": "40",
+    "videoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4"
+  },
+  {
+    "name": "Barbell Bench Press",
+    "muscleGroup": "Chest",
+    "fitness_type": "Intermediate",
+    "equipment": "Barbell",
+    "description": "Compound chest exercise focusing on strength and mass building.",
+    "reps": "8-10",
+    "sets": "4",
+    "duration": "8 min",
+    "caloriesBurned": "60",
+    "videoUrl": "https://www.youtube.com/watch?v=rT7DgCr-3pg"
+  },
+  {
+    "name": "Pull-Ups",
+    "muscleGroup": "Back",
+    "fitness_type": "Advanced",
+    "equipment": "Pull-up Bar",
+    "description": "A challenging bodyweight exercise to build back and arm strength.",
+    "reps": "6-10",
+    "sets": "3",
+    "duration": "6 min",
+    "caloriesBurned": "50",
+    "videoUrl": "https://www.youtube.com/watch?v=eGo4IYlbE5g"
+  },
+  {
+    "name": "Barbell Squats",
+    "muscleGroup": "Legs",
+    "fitness_type": "Intermediate",
+    "equipment": "Barbell",
+    "description": "Full-body compound movement focusing on quads, glutes, and core.",
+    "reps": "8-12",
+    "sets": "4",
+    "duration": "10 min",
+    "caloriesBurned": "80",
+    "videoUrl": "https://www.youtube.com/watch?v=Dy28eq2PjcM"
+  },
+  {
+    "name": "Lunges",
+    "muscleGroup": "Legs",
+    "fitness_type": "Beginner",
+    "equipment": "Bodyweight",
+    "description": "Great unilateral exercise to build leg strength and stability.",
+    "reps": "10-12 per leg",
+    "sets": "3",
+    "duration": "7 min",
+    "caloriesBurned": "60",
+    "videoUrl": "https://www.youtube.com/watch?v=QOVaHwm-Q6U"
+  },
+  {
+    "name": "Dumbbell Shoulder Press",
+    "muscleGroup": "Shoulders",
+    "fitness_type": "Intermediate",
+    "equipment": "Dumbbells",
+    "description": "Builds shoulder size and strength with dumbbells for stability.",
+    "reps": "10-12",
+    "sets": "3",
+    "duration": "6 min",
+    "caloriesBurned": "50",
+    "videoUrl": "https://www.youtube.com/watch?v=qEwKCR5JCog"
+  },
+  {
+    "name": "Plank Hold",
+    "muscleGroup": "Core",
+    "fitness_type": "Beginner",
+    "equipment": "Bodyweight",
+    "description": "Isometric exercise to build core strength and stability.",
+    "reps": "Hold 30-60 sec",
+    "sets": "3",
+    "duration": "5 min",
+    "caloriesBurned": "30",
+    "videoUrl": "https://www.youtube.com/watch?v=pSHjTRCQxIw"
+  },
+  {
+    "name": "Parallel Bar Dips",
+    "muscleGroup": "Triceps",
+    "fitness_type": "Advanced",
+    "equipment": "Parallel Bars",
+    "description": "Advanced bodyweight move to build tricep mass and strength.",
+    "reps": "6-8",
+    "sets": "3",
+    "duration": "5 min",
+    "caloriesBurned": "45",
+    "videoUrl": "https://www.youtube.com/watch?v=6kALZikXxLc"
+  }
+]

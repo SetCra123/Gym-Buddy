@@ -64,14 +64,20 @@ export const login = async (userData) => {
   };
 
 
-  export const updateUserProfile = async () => {
-    return apiRequest('/api/users/me', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('id_token')}`, // token from signup/login
-      },
-    }, "Failed to create new workout");
-  };
+  export const updateUserProfile = async (profileData) => {
+    const token = localStorage.getItem("id_token");
+    const res = await fetch("/api/users/me", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(profileData), // Must be stringified
+  });
+
+  if (!res.ok) throw new Error("Failed to update profile");
+  return res.json();
+};
 
 
   //EXERCISE ROUTES

@@ -86,12 +86,16 @@ module.exports = {
 
 
     async updateUserProfile(req, res) {
+        console.log("🟢 Incoming profile update request...");
+        console.log("🔑 Authenticated user:", req.user); // comes from authMiddleware
+        console.log("📦 Request body:", req.body);        // what frontend is sending
+        
         try {
           const userId = req.user._id;
           const { age, height, weight, goal, fitness_type } = req.body;
           console.log(req.body);
   
-          const updatedUser = await findByIDAndUpdate(
+          const updatedUser = await User.findByIdAndUpdate(
             userId,
             {
               age,
