@@ -93,7 +93,8 @@ module.exports = {
   try {
     const userId = req.user._id;
     const { age, height, weight, goal, fitness_level } = req.body;
-
+  
+    // update user profile info
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { age, height, weight, fitness_level, goal },
@@ -104,69 +105,37 @@ module.exports = {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Only generate a new workout if one doesn't exist
-    if (!updatedUser.workoutRoutine || updatedUser.workoutRoutine.length === 0) {
-
-      // 🧠 Map user goal to relevant muscle groups
-      let muscleGroups = [];
-      switch (goal.toLowerCase()) {
-        case "lean":
-        case "toned":
-          muscleGroups = ["Core", "Legs", "Chest"];
-          break;
-        case "bulk":
-          muscleGroups = ["Back", "Chest", "Arms"];
-          break;
-        case "strength":
-          muscleGroups = ["Legs", "Back", "Shoulders"];
-          break;
-        default:
-          muscleGroups = ["Full Body"];
-      }
-
-      // 🧩 Map fitness_level to Exercise.fitness_type
-      const fitnessType =
-        fitness_level === "beginner"
-          ? "Beginner"
-          : fitness_level === "intermediate"
-          ? "Intermediate"
-          : "Advanced";
-
-      // 🏋️ Find exercises that match
-      const userExercises = await Exercise.find({
-        fitness_type: fitnessType,
-        muscleGroup: { $in: muscleGroups },
-      }).limit(5);
-
-      console.log("🗒️ Found exercises:", userExercises);
-
-      if (!userExercises || userExercises.length === 0) {
-        console.warn("No exercises found for", { goal, fitnessType });
-        return res
-          .status(400)
-          .json({ message: "No matching exercises found." });
-      }
-
-      // 🔧 Default routine attributes
-      const difficulty = fitnessType;
-      const duration = "30 minutes";
-      const intensity = goal;
-
-      // 🆕 Create and link a workout routine
-      const newWorkout = await WorkoutRoutine.create({
-        userId,
-        goal,
-        difficulty,
-        duration,
-        intensity,
-        exercises: userExercises.map((ex) => ex._id),
+// Find matching exercises   
+    const exercise = await Exercise.find({
+      goal: goal,
+      fitness_level: fitness_level
+    });
+    if (exercise.length === 0) {
+      return res.status(404).json({
+        message: `No exercises found for goal: ${goal} and fitness level: ${fitness_level}`
       });
-
-      updatedUser.workoutRoutine.push(newWorkout._id);
-      await updatedUser.save();
     }
 
-    res.json(updatedUser);
+    // Create new workout routine
+    const workoutRoutine = await WorkoutRoutine.create({
+      userId: req.user._id,
+      goal,
+      fitness_level,
+      exercises: exercise.map(ex => ex._id),
+      duration: '4 weeks',
+      notes: `Auto-generated ${goal} routine for ${fitness_level} user`
+    });
+ 
+    //Assign workout to user
+    updatedUser.workoutRoutine = workoutRoutine._id;
+    await updatedUser.save();
+
+    res.status(201).json({
+      message: '✅ Profile completed and workout routine generated!',
+      user,
+      workoutRoutine
+    });
+
   } catch (err) {
     console.error("❌ Error updating user profile:", err);
     res.status(400).json({ message: "Failed to update profile" });
