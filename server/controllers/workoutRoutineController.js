@@ -1,5 +1,6 @@
 const WorkoutRoutine = require('../models/WorkoutRoutine');
 const User = require('../models/User');
+const Exercise = require('../models/Exercise');
 
 
 module.exports = {
@@ -57,32 +58,56 @@ module.exports = {
 
     async getUserWorkout(req, res) {
       try {
-        const { userId } = req.params;  // from URL
+        const { userId } = req.params;
         const user = await User.findById(userId);
     
-        if (!user) {
-          return res.status(404).json({ message: "User not found" });
+        if (!user) return res.status(404).json({ error: "User not found" });
+        if (!user.goal || !user.fitness_level)
+          return res.status(400).json({ error: "User must have a goal and fitness_type" });
+    
+        // Map goals to muscle groups
+        let muscleGroups = [];
+        switch (user.goal.toLowerCase()) {
+          case 'lean':
+            muscleGroups = ['Core', 'Legs', 'Chest'];
+            break;
+          case 'bulk':
+            muscleGroups = ['Back', 'Chest', 'Arms'];
+            break;
+          case 'strength':
+            muscleGroups = ['Legs', 'Back', 'Shoulders'];
+            break;
+          default:
+            muscleGroups = ['Full Body'];
         }
     
-        // Ensure the user has required profile info
-        if (!user.fitness_level || !user.goal) {
-          return res.status(400).json({ message: "User profile incomplete" });
-        }
+        // Find exercises that match the goal and fitness type
+        const exercises = await Exercise.find({
+          muscleGroup: { $in: muscleGroups },
+          fitness_type: fitness_level.charAt(0).toUpperCase() + fitness_level.slice(1),
+          goal: goal?.toLowerCase()
+          }).limit(5);
     
-        // Find workout routine based on profile
-        const workoutRoutine = await WorkoutRoutine.findOne({
-          fitnessLevel: user.fitness_level,
+        if (exercises.length === 0)
+          return res.status(404).json({
+            message: `No exercises found for ${user.goal} - ${user.fitness_level}`,
+          });
+    
+        // Create the routine
+        const newRoutine = await WorkoutRoutine.create({
+          userId: user._id,
           goal: user.goal,
-        }).populate("exercises");
+          fitness_type: user.fitness_level,
+          exercises: exercises.map((ex) => ex._id),
+          duration: '4 weeks',
+        });
     
-        if (!workoutRoutine) {
-          return res.status(404).json({ message: "No workout found for this user" });
-        }
-    
-        res.json(workoutRoutine);
-      } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Server error" });
+        res.status(201).json({
+          message: 'Workout routine created successfully',
+          routine: newRoutine,
+        });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
       }
     },
   

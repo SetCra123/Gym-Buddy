@@ -86,64 +86,90 @@ module.exports = {
 
 
     async updateUserProfile(req, res) {
-        console.log("🟢 Incoming profile update request...");
-        console.log("🔑 Authenticated user:", req.user); // comes from authMiddleware
-        console.log("📦 Request body:", req.body);        // what frontend is sending
-        
-        try {
-          const userId = req.user._id;
-          const { age, height, weight, goal, fitness_type } = req.body;
-          console.log(req.body);
-  
-          const updatedUser = await User.findByIdAndUpdate(
-            userId,
-            {
-              age,
-              height,
-              weight,
-              fitness_type,
-              goal,
-            }, {
-                new: true
-            });
-  
-            if (!updatedUser) {
-                return res.status(404).json({message: "User not found"});
-            }
-  
-            if(!updatedUser.workoutRoutine) {
-                const userExercises = await Exercise.find({
-                    difficulty: fitness_type,
-                    goal: goal
-                }).limit(5);
-                console.log(userExercises);
-            
-                if (!userExercises || userExercises.length === 0) {
-                    console.warn("No exercises found for", { goal, fitness_type });
-                    return res.status(400).json({ message: "No matching exercises found." });
-                  }
+  console.log("🟢 Incoming profile update request...");
+  console.log("🔑 Authenticated user:", req.user);
+  console.log("📦 Request body:", req.body);
 
-            const newWorkout = await WorkoutRoutine.create({
-                userId,
-                goal,
-                difficulty,
-                duration: duration, 
-                intensity: intensity,
-                exercises: userExercises.map(ex => ex._id),
-            });
-    
-           
-         updatedUser.workoutRoutine.push(newWorkout._id);  
-         await updatedUser.save(); 
-        } 
-       
-        res.json(updatedUser);
+  try {
+    const userId = req.user._id;
+    const { age, height, weight, goal, fitness_level } = req.body;
 
-        }
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { age, height, weight, fitness_level, goal },
+      { new: true }
+    );
 
-        catch (err) {
-          console.error(err);
-          res.status(400).json({ message: 'Failed to update profile' });
-        }
-      },
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Only generate a new workout if one doesn't exist
+    if (!updatedUser.workoutRoutine || updatedUser.workoutRoutine.length === 0) {
+
+      // 🧠 Map user goal to relevant muscle groups
+      let muscleGroups = [];
+      switch (goal.toLowerCase()) {
+        case "lean":
+        case "toned":
+          muscleGroups = ["Core", "Legs", "Chest"];
+          break;
+        case "bulk":
+          muscleGroups = ["Back", "Chest", "Arms"];
+          break;
+        case "strength":
+          muscleGroups = ["Legs", "Back", "Shoulders"];
+          break;
+        default:
+          muscleGroups = ["Full Body"];
+      }
+
+      // 🧩 Map fitness_level to Exercise.fitness_type
+      const fitnessType =
+        fitness_level === "beginner"
+          ? "Beginner"
+          : fitness_level === "intermediate"
+          ? "Intermediate"
+          : "Advanced";
+
+      // 🏋️ Find exercises that match
+      const userExercises = await Exercise.find({
+        fitness_type: fitnessType,
+        muscleGroup: { $in: muscleGroups },
+      }).limit(5);
+
+      console.log("🗒️ Found exercises:", userExercises);
+
+      if (!userExercises || userExercises.length === 0) {
+        console.warn("No exercises found for", { goal, fitnessType });
+        return res
+          .status(400)
+          .json({ message: "No matching exercises found." });
+      }
+
+      // 🔧 Default routine attributes
+      const difficulty = fitnessType;
+      const duration = "30 minutes";
+      const intensity = goal;
+
+      // 🆕 Create and link a workout routine
+      const newWorkout = await WorkoutRoutine.create({
+        userId,
+        goal,
+        difficulty,
+        duration,
+        intensity,
+        exercises: userExercises.map((ex) => ex._id),
+      });
+
+      updatedUser.workoutRoutine.push(newWorkout._id);
+      await updatedUser.save();
+    }
+
+    res.json(updatedUser);
+  } catch (err) {
+    console.error("❌ Error updating user profile:", err);
+    res.status(400).json({ message: "Failed to update profile" });
+  }
+}
 };

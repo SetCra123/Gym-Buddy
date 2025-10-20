@@ -10,7 +10,7 @@ export default function ProfileSetup() {
     height: "",
     weight: "",
     goal: "",
-    fitness_type: ""
+    fitness_level: ""
   });
   const [showAlert, setShowAlert] = useState(false);
 
@@ -104,8 +104,8 @@ export default function ProfileSetup() {
           <Form.Group className="mb-3">
             <Form.Label>Fitness Level</Form.Label>
             <Form.Select
-              name="fitness_type"
-              value={profileData.fitness_type}
+              name="fitness_level"
+              value={profileData.fitness_level}
               onChange={handleChange}
               required
             >

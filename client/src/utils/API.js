@@ -9,7 +9,7 @@ export const getUsers = async (token) => {
       method: 'GET',  
       headers: {
             'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
         },
       },
         "Failed to fetch user");

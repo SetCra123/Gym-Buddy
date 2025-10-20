@@ -1,59 +1,50 @@
 [
-    {
-      "id": 1,
-      "goal": "Lean",
-      "difficulty": "Beginner",
-      "duration": 30,
-      "intensity": "Medium",
-      "exercises": [
-        "Push-ups",
-        "Squats",
-        "Pull-ups",
-        "Plank",
-        "Crunches"
-      ]
-    },
-    {
-      "id": 2,
-      "goal": "Muscular",
-      "difficulty": "Intermediate",
-      "duration": 45,
-      "intensity": "High",
-      "exercises": [
-        "Bench Press",
-        "Deadlifts",
-        "Pull-ups",
-        "Bicep Curls",
-        "Triceps Dips"
-      ]
-    },
-    {
-      "id": 4,
-      "goal": "Bulk",
-      "difficulty": "Advanced",
-      "duration": 60,
-      "intensity": "High",
-      "exercises": [
-        "Bench Press",
-        "Deadlifts",
-        "Squats",
-        "Pull-ups",
-        "Bicep Curls"
-      ]
-    },
-    {
-      "id": 5,
-      "goal": "Toned",
-      "difficulty": "Beginner",
-      "duration": 30,
-      "intensity": "Medium",
-      "exercises": [
-        "Push-ups",
-        "Squats",
-        "Crunches",
-        "Triceps Dips",
-        "Plank"
-      ]
-    }
-  ]
-  
+  {
+    "goal": "Lean",
+    "fitness_level": "Beginner",
+    "duration": "4 weeks",
+    "notes": "Focus on bodyweight exercises and conditioning.",
+    "exercises": [
+      "Push-Ups",
+      "Squats",
+      "Plank",
+      "Lunges"
+    ]
+  },
+  {
+    "goal": "Strength",
+    "fitness_level": "Intermediate",
+    "duration": "4 weeks",
+    "notes": "Emphasis on compound lifts and progressive overload.",
+    "exercises": [
+      "Bench Press",
+      "Pull-Ups",
+      "Barbell Squat",
+      "Deadlift"
+    ]
+  },
+  {
+    "goal": "Bulk",
+    "fitness_level": "Advanced",
+    "duration": "6 weeks",
+    "notes": "Heavier weights, lower reps for maximum hypertrophy.",
+    "exercises": [
+      "Barbell Squat",
+      "Bench Press",
+      "Deadlift",
+      "Dumbbell Shoulder Press"
+    ]
+  },
+  {
+    "goal": "Toned",
+    "fitness_level": "Beginner",
+    "duration": "4 weeks",
+    "notes": "Higher reps and bodyweight work to tone and tighten muscles.",
+    "exercises": [
+      "Tricep Dips",
+      "Push-Ups",
+      "Lunges",
+      "Plank"
+    ]
+  }
+]

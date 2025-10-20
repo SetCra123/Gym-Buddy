@@ -28,16 +28,16 @@ const userSchema = new Schema (
         required: true,
       }],
       fitness_level: [{
-        type: Schema.Types.ObjectID,
+        type: String,
         ref: "Curret_Body_Type",
         required: true,
-        enum: ['Beginner', 'Intermedite', 'Advanced']
+        enum: ['Beginner', 'Intermediate', 'Advanced']
       }],
       goal: [{
         type: String,
         ref: "Goal",
         required: true,
-        enum: ['Lean', 'Muscular', 'Bulk', 'Toned']
+        enum: ['Lean', 'Strength', 'Bulk', 'Toned']
       }],
       workout_routine: [{
         type: Schema.Types.ObjectID,

@@ -1,50 +1,54 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-
-const workoutRoutineSchema = new Schema (
-    {
-     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      //   required: true
-     },
-     excercises: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Excercise'
-     }
-   ],
-     duration: {
-        type: Number,
-      //   required: true
-     },
-     intensity: {
-        type: String, 
-        enum: ['Low', 'Medium', 'High'],
-      //   required: true
-     },
-     diffifculty: {
-      type: String
-     },
-     goal: [{
+const workoutRoutineSchema = new Schema(
+  {
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: false,
+    },
+    goal: {
       type: String,
-      ref: "Goal",
+      enum: ['Lean', 'Bulk', 'Strength', 'Toned'],
       required: true,
-      enum: ['Lean', 'Muscular', 'Bulk', 'Toned']
-    }],
-     
-    //  createdAt: {
-    //     type: Date,
-    //     default: Date.now
-    //  }
+    },
+    fitness_level: {
+      type: String,
+      enum: ['Beginner', 'Intermediate', 'Advanced'],
+      required: true,
+    },
+    exercises: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Exercise',
+      },
+    ],
+    duration: {
+      type: String,
+      default: '4 weeks',
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    notes: {
+      type: String,
+    },
+  },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    id: false,
+  }
+);
 
+// Example virtual to show how many exercises are in the routine
+workoutRoutineSchema.virtual('exerciseCount').get(function () {
+  return this.exercises.length;
+});
 
-    });
-
-    const WorkoutRoutine = mongoose.model('WorkoutRoutine', workoutRoutineSchema);
-
-
-
+const WorkoutRoutine = mongoose.model('WorkoutRoutine', workoutRoutineSchema);
 
 module.exports = WorkoutRoutine;

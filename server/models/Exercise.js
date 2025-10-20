@@ -12,7 +12,7 @@ const exerciseSchema = new Schema (
         type: String,
         required: true,
       },
-      fitness_type: {
+      fitness_level: {
         type: String,
         enum: ['Beginner', 'Intermediate', 'Advanced'],
         required: true,
@@ -21,6 +21,12 @@ const exerciseSchema = new Schema (
         type: String, 
         enum: ['Bodyweight', 'Barbell', 'Dumbbells', 'Pull-up Bar', 'Parallel Bars'], 
       },
+      goal: [{
+        type: String,
+        ref: "Goal",
+        required: true,
+        enum: ['Lean', 'Strength', 'Bulk', 'Toned']
+      }],
       description: { 
         type: String,
       },
