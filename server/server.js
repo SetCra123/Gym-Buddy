@@ -6,6 +6,12 @@ const routes = require('./routes');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+
+app.use((req, res, next) => {
+    console.log(`➡️ ${req.method} ${req.path}`);
+    next();
+  });
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

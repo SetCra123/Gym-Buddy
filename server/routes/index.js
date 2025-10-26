@@ -10,4 +10,8 @@ router.use((req, res) => {
     res.sendFile(path.join(__dirname, '../../client/index.html'));
   });
 
+router.get('/test-proxy', (req, res) => {
+    res.json({ message: 'Proxy working!' });
+  });
+
 module.exports = router;

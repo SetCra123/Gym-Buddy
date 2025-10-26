@@ -92,12 +92,12 @@ module.exports = {
 
   try {
     const userId = req.user._id;
-    const { age, height, weight, goal, fitness_level } = req.body;
+    const { age, height, weight, goal } = req.body;
   
     // update user profile info
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { age, height, weight, fitness_level, goal },
+      { age, height, weight, goal },
       { new: true }
     );
 
@@ -106,39 +106,46 @@ module.exports = {
     }
 
 // Find matching exercises   
-    const exercise = await Exercise.find({
-      goal: goal,
-      fitness_level: fitness_level
+    const routines = await WorkoutRoutine.find({
+      goal: goal
     });
-    if (exercise.length === 0) {
-      return res.status(404).json({
-        message: `No exercises found for goal: ${goal} and fitness level: ${fitness_level}`
-      });
-    }
-
-    // Create new workout routine
-    const workoutRoutine = await WorkoutRoutine.create({
-      userId: req.user._id,
-      goal,
-      fitness_level,
-      exercises: exercise.map(ex => ex._id),
-      duration: '4 weeks',
-      notes: `Auto-generated ${goal} routine for ${fitness_level} user`
-    });
- 
-    //Assign workout to user
-    updatedUser.workoutRoutine = workoutRoutine._id;
-    await updatedUser.save();
-
-    res.status(201).json({
-      message: '✅ Profile completed and workout routine generated!',
-      user,
-      workoutRoutine
+    res.status(200).json({
+      message: "✅ Profile updated. Choose your fitness level routine.",
+      user: updatedUser,
+      availableRoutines: routines
     });
 
   } catch (err) {
-    console.error("❌ Error updating user profile:", err);
-    res.status(400).json({ message: "Failed to update profile" });
+    console.error("❌ Error updating user profile:", err.message);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+},
+
+
+async assignWorkoutRoutine(req, res) {
+  try {
+    const userId = req.user._id;
+    const { routineId } = req.body;
+
+    const routine = await WorkoutRoutine.findById(routineId);
+    if (!routine) {
+      return res.status(404).json({ message: "Workout routine not found" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { workoutRoutine: routineId },
+      { new: true }
+    ).populate("workoutRoutine");
+
+    res.status(200).json({
+      message: "✅ Workout routine assigned successfully!",
+      user: updatedUser
+    });
+  } catch (err) {
+    console.error("❌ Error assigning routine:", err);
+    res.status(400).json({ message: "Failed to assign routine" });
   }
 }
+
 };
