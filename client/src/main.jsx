@@ -1,52 +1,56 @@
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Signup from "./pages/SignUp";
+import ProfileSetup from "./pages/ProfileSetup";
+import GoalSelection from "./pages/GoalSelection";
+import ProtectedRoute from "./components/ProtectedRoutes"; // ✅ renamed to match component name
 
-// import { StrictMode } from 'react'
-// import { createRoot } from 'react-dom/client'
-import App from './App'
-// import './index.css'
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Signup from './pages/SignUp';
-import ProfileSetup from './pages/ProfileSetup';
-import ProtectedRoutes from './components/ProtectedRoutes';
+// You can later add an Error component if you have one
+// import Error from './pages/Error';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
-    errorElement: <Error />,
+    // errorElement: <Error />,
     children: [
-      // Default (landing page) -> maybe Home if logged in, or Login if not
+      // Public routes
       {
         index: true,
-        element: <Home />   // 👈 Home at `/`
+        element: <Login />, // Landing page shows Login by default
       },
       {
-        path: 'login',
-        element: <Login />
+        path: "login",
+        element: <Login />,
       },
       {
-        path: 'signup',
-        element: <Signup />
+        path: "signup",
+        element: <Signup />,
       },
+
+      // Protected routes (user must be logged in)
       {
-        element: <ProtectedRoutes requiresProfile={true} />,
+        element: <ProtectedRoute requiresProfile={true} />,
         children: [
-          { path: 'home', element: <Home /> },   // 👈 `/home` also works
-        ]
+          { path: "home", element: <Home /> },
+          { path: "goals", element: <GoalSelection /> }, // ✅ user must have profile to access
+        ],
       },
+
+      // Route for profile setup (incomplete profile)
       {
-        element: <ProtectedRoutes requiresProfile={false} />,
+        element: <ProtectedRoute requiresProfile={false} />,
         children: [
-          { path: 'profile-update', element: <ProfileSetup /> }, // 👈 only accessible if profile incomplete
-        ]
-      }
-    ]
-  }
+          { path: "profile-update", element: <ProfileSetup /> },
+        ],
+      },
+    ],
+  },
 ]);
 
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
 );

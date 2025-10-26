@@ -84,7 +84,7 @@ export const login = async (userData) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({ routineId }),
     }, "Failed to assign workout routine");
@@ -100,6 +100,17 @@ export const login = async (userData) => {
     }, `Failed to fetch workout routines for goal: ${goal}`);
   }
 
+
+  // ✅ Get user profile (for home page)
+export const getUserProfile = async () => {
+  const token = localStorage.getItem("id_token");
+  return apiRequest("/api/users/me", {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    },
+  }, "Failed to fetch user profile");
+};
   //EXERCISE ROUTES
 
 // export const getAllExcercises = (userData) => {

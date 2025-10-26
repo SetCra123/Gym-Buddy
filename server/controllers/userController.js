@@ -97,7 +97,7 @@ module.exports = {
     // update user profile info
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { age, height, weight, goal },
+      { age, height, weight, goal, profileComplete: true },
       { new: true }
     );
 

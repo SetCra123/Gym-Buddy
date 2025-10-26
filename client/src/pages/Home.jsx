@@ -1,49 +1,37 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getUsers, getUserWorkoutRoutine } from "../utils/API";
-import ProfileCard from "../components/ProfileCard";
-import WorkoutCard from "../components/WorkoutCard";
+import { getUserProfile } from "../utils/API";
 
 export default function Home() {
   const [user, setUser] = useState(null);
-  const [workout, setWorkout] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem("id_token");
-        const userData = await getUsers(token);
-        setUser(userData);
-
-        // If profile incomplete, redirect
-        if (!userData.goal || !userData.fitnessLevel) {
-          navigate("/profile-update");
-          return;
-        }
-
-        // Fetch workout tailored to fitness level + goal
-        const workoutData = await getUserWorkoutRoutine(userData.fitnessLevel, userData.goal);
-        setWorkout(workoutData);
-
+        const data = await getUserProfile();
+        setUser(data);
       } catch (err) {
-        console.error("Error fetching dashboard:", err);
-      } finally {
-        setLoading(false);
+        console.error("Error fetching profile:", err);
       }
     };
+    fetchProfile();
+  }, []);
 
-    fetchData();
-  }, [navigate]);
-
-  if (loading) return <h3>Loading your dashboard...</h3>;
+  if (!user) return <p>Loading...</p>;
 
   return (
-    <div className="container mt-5">
-      <h1>Welcome, <strong>{user?.username}</strong> 👋</h1>
-      <ProfileCard user={user} />
-      <WorkoutCard workout={workout} />
+    <div className="home">
+      <h2>Welcome back, {user.username}!</h2>
+      {user.workoutRoutine ? (
+        <>
+          <h3>Your Current Routine</h3>
+          <p>Goal: {user.goal}</p>
+          <p>Fitness Level: {user.fitness_level}</p>
+          <p>Duration: {user.workoutRoutine.duration}</p>
+          <p>Notes: {user.workoutRoutine.notes}</p>
+        </>
+      ) : (
+        <p>You haven’t selected a routine yet.</p>
+      )}
     </div>
   );
 }
