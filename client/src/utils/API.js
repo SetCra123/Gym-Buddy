@@ -90,6 +90,16 @@ export const login = async (userData) => {
     }, "Failed to assign workout routine");
   };
 
+
+  export async function fetchWorkoutRoutinesByGoal(goal) {
+    return apiRequest(`/api/users/routines/${goal}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }, `Failed to fetch workout routines for goal: ${goal}`);
+  }
+
   //EXERCISE ROUTES
 
 // export const getAllExcercises = (userData) => {

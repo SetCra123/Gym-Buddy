@@ -157,6 +157,26 @@ async assignWorkoutRoutine(req, res) {
     console.error("❌ Error assigning routine:", err);
     res.status(400).json({ message: "Failed to assign routine" });
   }
-}
+},
+
+async getWorkoutRoutinesByGoal(req, res) {
+  try {
+    const { goal } = req.params;
+
+    console.log("🎯 Fetching workout routines for goal:", goal);
+
+    // Find all routines that match the goal
+    const routines = await WorkoutRoutine.find({ goal });
+
+    if (!routines.length) {
+      return res.status(404).json({ message: `No workout routines found for goal: ${goal}` });
+    }
+
+    res.json(routines);
+  } catch (err) {
+    console.error("❌ Error fetching workout routines by goal:", err);
+    res.status(500).json({ message: "Server error fetching workout routines", error: err.message });
+  }
+},
 
 };

@@ -7,6 +7,7 @@ const {
   removeUser,
   updateUserProfile,
   assignWorkoutRoutine,
+  getWorkoutRoutinesByGoal,
 } = require('../../controllers/userController');
 
 // import middleware
@@ -22,5 +23,6 @@ router.route('/:userId').delete(removeUser);
 router.route('/me').get(authMiddleware, getSingleUser)
                    .put(authMiddleware, updateUserProfile);
 router.route('/assign-routine').put(authMiddleware, assignWorkoutRoutine);
+router.route('/routines/:goal').get(getWorkoutRoutinesByGoal);
 
 module.exports = router;
