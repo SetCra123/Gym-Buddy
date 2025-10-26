@@ -66,20 +66,29 @@ export const login = async (userData) => {
 
   export const updateUserProfile = async (profileData) => {
     const token = localStorage.getItem("id_token");
-    console.log("Token before update:", token);
-    const res = await fetch("/api/users/me", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
-    },
-    body: JSON.stringify(profileData), // Must be stringified
-  });
+  
+    return apiRequest("/api/users/update-profile", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(profileData),
+    }, "Failed to update profile");
+  };
 
-  if (!res.ok) throw new Error("Failed to update profile");
-  return res.json();
-};
-
+  export const assignWorkoutRoutine = async (routineId) => {
+    const token = localStorage.getItem("id_token");
+  
+    return apiRequest("/api/users/assign-routine", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ routineId }),
+    }, "Failed to assign workout routine");
+  };
 
   //EXERCISE ROUTES
 

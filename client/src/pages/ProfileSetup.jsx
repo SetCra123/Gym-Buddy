@@ -2,125 +2,132 @@ import { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-import { updateUserProfile } from "../utils/API"; // ✅ you'll make this API function
+import { updateUserProfile, assignWorkoutRoutine } from "../utils/API"; // ✅ you'll make this API function
 
 export default function ProfileSetup() {
+  const navigate = useNavigate();
+  
   const [profileData, setProfileData] = useState({
     age: "",
     height: "",
     weight: "",
     goal: "",
-    fitness_level: ""
   });
+
+  const [availableRoutines, setAvailableRoutines] = useState([]);
+  const [selectedRoutine, setSelectedRoutine] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
+  const [step, setStep] = useState(1); // 1 = profile form, 2 = routine selection
 
-  const navigate = useNavigate();
-
+  // ✅ handle form input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProfileData({ ...profileData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  // ✅ Step 1: Update profile and get routines
+  const handleSubmitProfile = async (e) => {
     e.preventDefault();
 
     try {
       const res = await updateUserProfile(profileData);
-      if (!res || res.error) throw new Error("Failed to update profile");
+      console.log("Profile updated:", res);
 
-      // ✅ update localStorage with new profile info
-      const user = JSON.parse(localStorage.getItem("user"));
-      localStorage.setItem("user", JSON.stringify({ ...user, ...profileData }));
-
-      // ✅ send them to home once profile is done
-      navigate("/home");
+      if (res.availableRoutines && res.availableRoutines.length > 0) {
+        setAvailableRoutines(res.availableRoutines);
+        setStep(2); // go to step 2
+      } else {
+        alert("No routines found for this goal.");
+      }
     } catch (err) {
       console.error(err);
       setShowAlert(true);
     }
   };
 
+  // ✅ Step 2: Assign chosen workout routine
+  const handleAssignRoutine = async () => {
+    if (!selectedRoutine) return alert("Please select a routine first.");
+
+    try {
+      const res = await assignWorkoutRoutine(selectedRoutine);
+      console.log("Routine assigned:", res);
+
+      // ✅ Save updated user info locally
+      const user = JSON.parse(localStorage.getItem("user")) || {};
+      localStorage.setItem("user", JSON.stringify({ ...user, workoutRoutine: res.user.workoutRoutine }));
+
+      alert("Workout routine assigned successfully!");
+      navigate("/home");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to assign workout routine.");
+    }
+  };
+
   return (
-    <div className="d-flex justify-content-center align-items-center mt-5">
-      <div className="form-div bg-white p-4 rounded w-50 border">
-        <h2>Complete Your Profile</h2>
-        <p>Enter your details so we can build a custom workout plan!</p>
+    <div className="profile-setup-container">
+      {step === 1 && (
+        <form onSubmit={handleSubmitProfile}>
+          <h2>Complete Your Profile</h2>
 
-        <Form onSubmit={handleSubmit}>
-          <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant="danger">
-            Something went wrong while saving your profile.
-          </Alert>
+          <input
+            name="age"
+            value={profileData.age}
+            onChange={handleChange}
+            placeholder="Age"
+          />
+          <input
+            name="height"
+            value={profileData.height}
+            onChange={handleChange}
+            placeholder="Height"
+          />
+          <input
+            name="weight"
+            value={profileData.weight}
+            onChange={handleChange}
+            placeholder="Weight"
+          />
 
-          <Form.Group className="mb-3">
-            <Form.Label>Age</Form.Label>
-            <Form.Control
-              type="number"
-              name="age"
-              value={profileData.age}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+          <select
+            name="goal"
+            value={profileData.goal}
+            onChange={handleChange}
+          >
+            <option value="">Select Goal</option>
+            <option value="Lean">Lean</option>
+            <option value="Strength">Strength</option>
+            <option value="Bulk">Bulk</option>
+            <option value="Toned">Toned</option>
+          </select>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Height</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="e.g. 5'10 or 178cm"
-              name="height"
-              value={profileData.height}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+          <button type="submit">Find Routines</button>
+        </form>
+      )}
 
-          <Form.Group className="mb-3">
-            <Form.Label>Weight (lbs)</Form.Label>
-            <Form.Control
-              type="number"
-              name="weight"
-              value={profileData.weight}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+      {step === 2 && (
+        <div>
+          <h2>Select a Routine</h2>
+          {availableRoutines.map((routine) => (
+            <div key={routine._id}>
+              <input
+                type="radio"
+                id={routine._id}
+                name="routine"
+                value={routine._id}
+                onChange={(e) => setSelectedRoutine(e.target.value)}
+              />
+              <label htmlFor={routine._id}>
+                {routine.fitness_level} – {routine.duration}
+              </label>
+            </div>
+          ))}
+          <button onClick={handleAssignRoutine}>Assign Routine</button>
+        </div>
+      )}
 
-          <Form.Group className="mb-3">
-            <Form.Label>Goal</Form.Label>
-            <Form.Select
-              name="goal"
-              value={profileData.goal}
-              onChange={handleChange}
-              required
-            >
-              <option value="">-- Select your goal --</option>
-              <option value="toned">Toned</option>
-              <option value="muscular">Muscular</option>
-              <option value="bulk">Bulk</option>
-              <option value="lean">Lean</option>
-            </Form.Select>
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Fitness Level</Form.Label>
-            <Form.Select
-              name="fitness_level"
-              value={profileData.fitness_level}
-              onChange={handleChange}
-              required
-            >
-              <option value="">-- Select your fitness level --</option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
-            </Form.Select>
-          </Form.Group>
-
-          <Button type="submit" className="btn btn-success w-100">
-            Save Profile
-          </Button>
-        </Form>
-      </div>
+      {showAlert && <p className="error">Error updating profile. Try again.</p>}
     </div>
   );
 }

@@ -109,11 +109,22 @@ module.exports = {
     const routines = await WorkoutRoutine.find({
       goal: goal
     });
+
+    if (routines.length === 0) {
+      return res.status(404).json({
+        message: `No workout routines found for goal: ${goal}`,
+      });
+    }
+
+    console.log(`💪 Found ${routines.length} routines for goal: ${goal}`);
+
     res.status(200).json({
       message: "✅ Profile updated. Choose your fitness level routine.",
       user: updatedUser,
       availableRoutines: routines
     });
+
+    
 
   } catch (err) {
     console.error("❌ Error updating user profile:", err.message);
