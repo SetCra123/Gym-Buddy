@@ -91,11 +91,22 @@ export const login = async (userData) => {
   };
 
 
-  export async function fetchWorkoutRoutinesByGoal(goal) {
-    return apiRequest(`/api/users/routines/${goal}`, {
-      method: 'GET',
+  export async function updateUserGoal(goal) {
+    return apiRequest(`/api/users/update-goal`, {
+      method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    }, `Failed to fetch workout routines for goal: ${goal}`);
+  }
+
+  export async function updateUserFitnessLevel(fitness_level) {
+    return apiRequest(`/api/users/update-fitness`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       }
     }, `Failed to fetch workout routines for goal: ${goal}`);
   }
