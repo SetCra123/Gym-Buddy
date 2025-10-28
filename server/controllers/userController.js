@@ -178,6 +178,4 @@ async updateFitnessLevel(req, res){
   }
 }
 
-},
-
 };
