@@ -92,12 +92,12 @@ module.exports = {
 
   try {
     const userId = req.user._id;
-    const { age, height, weight, goal } = req.body;
+    const { age, height, weight } = req.body;
   
     // update user profile info
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { age, height, weight, goal, profileComplete: true },
+      { age, height, weight },
       { new: true }
     );
 
@@ -105,30 +105,18 @@ module.exports = {
       return res.status(404).json({ message: "User not found" });
     }
 
-// Find matching exercises   
-    const routines = await WorkoutRoutine.find({
-      goal: goal
-    });
-
-    if (routines.length === 0) {
-      return res.status(404).json({
-        message: `No workout routines found for goal: ${goal}`,
-      });
-    }
-
-    console.log(`💪 Found ${routines.length} routines for goal: ${goal}`);
+    // mark as profile partially complete
+    updatedUser.profileComplete = true;
+    await updatedUser.save();
 
     res.status(200).json({
-      message: "✅ Profile updated. Choose your fitness level routine.",
-      user: updatedUser,
-      availableRoutines: routines
+      message: "✅ Profile updated successfully!",
+      user: updatedUser
     });
 
-    
-
   } catch (err) {
-    console.error("❌ Error updating user profile:", err.message);
-    res.status(500).json({ message: "Server error", error: err.message });
+    console.error("❌ Error updating user profile:", err);
+    res.status(500).json({ message: "Failed to update profile" });
   }
 },
 
@@ -159,24 +147,37 @@ async assignWorkoutRoutine(req, res) {
   }
 },
 
-async getWorkoutRoutinesByGoal(req, res) {
+async updateUserGoal(req, res) {
   try {
-    const { goal } = req.params;
-
-    console.log("🎯 Fetching workout routines for goal:", goal);
-
-    // Find all routines that match the goal
-    const routines = await WorkoutRoutine.find({ goal });
-
-    if (!routines.length) {
-      return res.status(404).json({ message: `No workout routines found for goal: ${goal}` });
-    }
-
-    res.json(routines);
+    const { goal } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.user_id,
+      { goal },
+      { new: true }
+    );
+    res.json(user);
   } catch (err) {
-    console.error("❌ Error fetching workout routines by goal:", err);
-    res.status(500).json({ message: "Server error fetching workout routines", error: err.message });
+    console.error("❌ Error updating goal:", err);
+    res.status(500).json({message: "Failed to update goal"});
   }
+
+ },
+
+async updateFitnessLevel(req, res){
+  try {
+    const { fitness_level } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { fitness_level },
+      { new: true }
+    );
+    res.json(user);
+  } catch (err) {
+    console.error("❌ Error updating fitness level:", err);
+    res.status(500).json({message: "Failed to update fitness level"});
+  }
+}
+
 },
 
 };

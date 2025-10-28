@@ -67,7 +67,7 @@ export const login = async (userData) => {
   export const updateUserProfile = async (profileData) => {
     const token = localStorage.getItem("id_token");
   
-    return apiRequest("/api/users/update-profile", {
+    return apiRequest("/api/users/me", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

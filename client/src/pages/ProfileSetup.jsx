@@ -25,7 +25,6 @@ function ProfileSetup() {
       navigate("/goals"); // move to goal selection page
     } catch (err) {
       console.error("❌ Error updating profile:", err);
-      setShowAlert(true);
     }
   };
 
