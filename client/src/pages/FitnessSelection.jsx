@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { updateUserFitnessLevel, assignWorkoutRoutine } from "../utils/API";
 
-export default function FitnessLevelSelection() {
+export default function FitnessSelection() {
   const navigate = useNavigate();
 
   const handleLevelSelect = async (level) => {

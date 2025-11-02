@@ -13,6 +13,10 @@ const userSchema = new Schema (
         type: String,
         required: true,
       },
+      profileComplete: {
+        type: Boolean,
+        default: false,
+      },
       password: {
         type: String,
         required: true,
@@ -31,13 +35,13 @@ const userSchema = new Schema (
         type: String,
         ref: "Curret_Body_Type",
         required: true,
-        enum: ['Beginner', 'Intermediate', 'Advanced']
+        enum: ['beginner', 'intermediate', 'advanced']
       }],
       goal: [{
         type: String,
         ref: "Goal",
         required: true,
-        enum: ['Lean', 'Strength', 'Bulk', 'Toned']
+        enum: ['lean', 'strength', 'bulk', 'toned']
       }],
       workout_routine: [{
         type: Schema.Types.ObjectID,

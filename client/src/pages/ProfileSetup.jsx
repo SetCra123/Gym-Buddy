@@ -19,12 +19,18 @@ function ProfileSetup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { user } = await updateUserProfile(formData);
-      localStorage.setItem("user", JSON.stringify(user));
-      console.log("✅ Profile updated successfully");
-      navigate("/goals"); // move to goal selection page
+      const updatedUser = await updateUserProfile(formData);
+  
+      if (!updatedUser) {
+        throw new Error("No user returned from API");
+      }
+  
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      console.log("✅ Profile updated successfully:", updatedUser);
+      navigate("/goals");
     } catch (err) {
       console.error("❌ Error updating profile:", err);
+      alert("Failed to update profile. Check console for details.");
     }
   };
 

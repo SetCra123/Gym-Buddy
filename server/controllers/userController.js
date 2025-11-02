@@ -86,64 +86,85 @@ module.exports = {
 
 
     async updateUserProfile(req, res) {
-  console.log("🟢 Incoming profile update request...");
-  console.log("🔑 Authenticated user:", req.user);
-  console.log("📦 Request body:", req.body);
+      console.log("🟢 Incoming profile update request...");
+      console.log("🔑 Authenticated user:", req.user);
+      console.log("📦 Request body:", req.body);
+    
+      try {
+        const updates = req.body;
+        const user = await User.findById(req.user._id);
+        
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+      
+        // ✅ Only update fields that are actually provided
+        Object.keys(updates).forEach((key) => {
+          if (updates[key] !== undefined && updates[key] !== null && updates[key] !== "") {
+             user[key] = updates[key];
+          }
+        });
+    
+        // ✅ Assign workout only when BOTH goal and fitness_level are set
+        if (user.goal && user.fitness_level) {
+         const routine = await WorkoutRoutine.findOne({
+          goal: user.goal,
+          fitness_level: user.fitness_level,
+        });
 
-  try {
-    const userId = req.user._id;
-    const { age, height, weight } = req.body;
+        if (routine) {
+          user.workout_routine = [routine._id];
+          user.profileComplete = true; // mark as complete only at this stage
+        }
+      }
+
+    
+      const updatedUser = await user.save();
+      const populatedUser = await User.findById(updatedUser._id)
+        .populate("workout_routine");
   
-    // update user profile info
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { age, height, weight },
-      { new: true }
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
+      res.json(populatedUser);
+    } catch (err) {
+      console.error("❌ Error updating user profile:", err);
+      res.status(500).json({ message: "Failed to update profile" });
     }
-
-    // mark as profile partially complete
-    updatedUser.profileComplete = true;
-    await updatedUser.save();
-
-    res.status(200).json({
-      message: "✅ Profile updated successfully!",
-      user: updatedUser
-    });
-
-  } catch (err) {
-    console.error("❌ Error updating user profile:", err);
-    res.status(500).json({ message: "Failed to update profile" });
-  }
-},
+    },
 
 
 async assignWorkoutRoutine(req, res) {
   try {
-    const userId = req.user._id;
-    const { routineId } = req.body;
+    const user = await User.findById(req.user._id)
 
-    const routine = await WorkoutRoutine.findById(routineId);
+    if(!user.goal || !user.fitness_level){}
+      return res.status(400).json({
+        message: "User must have a goal and fitness level before assigning a routine",
+      });
+    
+    // Find a routine that matches goal and fitness
+    const routine = await WorkoutRoutine.findOne({
+      goal: user.goal,
+      fitness_level: user.fitness_level,
+    }).populate("excercises");
     if (!routine) {
-      return res.status(404).json({ message: "Workout routine not found" });
-    }
+      return res.status(404).json({ 
+        message: `No routine found for goal: ${user.goal} and fitness level: ${user.fitness_level}`,
+      });
+    }  
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { workoutRoutine: routineId },
-      { new: true }
-    ).populate("workoutRoutine");
+    // Assign the routine to the user
+    user.workout_routine = routine._id;
+    await user.save();
 
-    res.status(200).json({
-      message: "✅ Workout routine assigned successfully!",
-      user: updatedUser
+    console.log(`🏋️ Assigned ${routine.name} to ${user.username}`);
+
+    // Return routine details
+    res.json({
+      message: "Routine assigned successfully!",
+      routine,
     });
   } catch (err) {
     console.error("❌ Error assigning routine:", err);
-    res.status(400).json({ message: "Failed to assign routine" });
+    res.status(500).json({ message: "Failed to assign workout routine" });
   }
 },
 
@@ -151,7 +172,7 @@ async updateUserGoal(req, res) {
   try {
     const { goal } = req.body;
     const user = await User.findByIdAndUpdate(
-      req.user_id,
+      req.user_.id,
       { goal },
       { new: true }
     );

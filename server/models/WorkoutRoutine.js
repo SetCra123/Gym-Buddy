@@ -10,12 +10,12 @@ const workoutRoutineSchema = new Schema(
     },
     goal: {
       type: String,
-      enum: ['Lean', 'Bulk', 'Strength', 'Toned'],
+      enum: ['lean', 'bulk', 'strength', 'toned'],
       required: true,
     },
     fitness_level: {
       type: String,
-      enum: ['Beginner', 'Intermediate', 'Advanced'],
+      enum: ['beginner', 'intermediate', 'advanced'],
       required: true,
     },
     exercises: [

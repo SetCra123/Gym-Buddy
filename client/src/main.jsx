@@ -7,6 +7,7 @@ import Signup from "./pages/SignUp";
 import ProfileSetup from "./pages/ProfileSetup";
 import GoalSelection from "./pages/GoalSelection";
 import ProtectedRoute from "./components/ProtectedRoutes"; // ✅ renamed to match component name
+import FitnessLevelSelection from "./pages/FitnessSelection";
 
 // You can later add an Error component if you have one
 // import Error from './pages/Error';
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
         children: [
           { path: "home", element: <Home /> },
           { path: "goals", element: <GoalSelection /> }, // ✅ user must have profile to access
+          { path: "fitness-level", element: <FitnessLevelSelection /> }, // ✅ user must have profile to access
         ],
       },
 

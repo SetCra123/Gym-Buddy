@@ -21,8 +21,8 @@ router.route('/login').post(login);
 router.route('/').get(getUsers);
 router.route('/:userId').delete(removeUser);
 
-router.route('/me').get(authMiddleware, getSingleUser)
-                   .put(authMiddleware, updateUserProfile);
+router.route('/me').get(authMiddleware, getSingleUser);
+router.route('/me').put(authMiddleware, updateUserProfile);
 router.route('/assign-routine').put(authMiddleware, assignWorkoutRoutine);
 router.route('/update-goal').put(authMiddleware, updateUserGoal);
 router.route('/update-fitness').put(authMiddleware, updateFitnessLevel);
