@@ -1,7 +1,7 @@
-// src/components/ProtectedRoutes.jsx
+// src/components/ProtectedRoute.jsx
 import { Navigate, Outlet } from "react-router-dom";
 
-export default function ProtectedRoute({ requiresProfile }) {
+export default function ProtectedRoute() {
   let user = null;
   try {
     const storedUser = localStorage.getItem("user");
@@ -10,20 +10,30 @@ export default function ProtectedRoute({ requiresProfile }) {
     console.error("Error parsing user from localStorage:", error);
   }
 
-  if (!user) return <Navigate to="/login" />;
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
-  // Check if the user’s profile is marked as complete
-  const isProfileComplete = user.profileComplete;
+  // Pull key fields for checking profile progress
+  const { height, weight, goal, fitness_level, profileComplete } = user;
 
-  if (requiresProfile && !isProfileComplete) {
-    // trying to access /home without completing profile
+  // ✅ Determine where they should go next
+  if (!height || !weight) {
     return <Navigate to="/profile-update" />;
   }
 
-  if (!requiresProfile && isProfileComplete) {
-    // trying to access /profile-update but already completed
-    return <Navigate to="/home" />;
+  if (!goal) {
+    return <Navigate to="/goals" />;
   }
 
-  return <Outlet />;
+  if (!fitness_level) {
+    return <Navigate to="/fitness-level" />;
+  }
+
+  if (profileComplete) {
+    return <Outlet />; // profile complete → continue to home or whatever route
+  }
+
+  // ✅ Default fallback if none of the above triggered
+  return <Navigate to="/profile-update" />;
 }

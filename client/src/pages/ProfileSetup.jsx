@@ -19,14 +19,14 @@ function ProfileSetup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedUser = await updateUserProfile(formData);
+      const user = await updateUserProfile(formData);
   
-      if (!updatedUser) {
+      if (!user) {
         throw new Error("No user returned from API");
       }
   
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      console.log("✅ Profile updated successfully:", updatedUser);
+      localStorage.setItem("user", JSON.stringify(user));
+      console.log("✅ Profile updated successfully:", user);
       navigate("/goals");
     } catch (err) {
       console.error("❌ Error updating profile:", err);
@@ -59,7 +59,7 @@ function ProfileSetup() {
           placeholder="Weight"
           required
         />
-        <button type="submit">Find Routines</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

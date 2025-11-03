@@ -3,13 +3,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   updateUserGoal,
-  updateUserFitnessLevel,
-  assignWorkoutRoutine,
 } from "../utils/API";
 
 export default function GoalSelection() {
   const [goal, setGoal] = useState("");
-  const [fitnessLevel, setFitnessLevel] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -18,24 +15,14 @@ export default function GoalSelection() {
     setError("");
 
     try {
-      // ✅ Update user goal
-      await updateUserGoal(goal);
+      const { user } = await updateUserGoal({ goal });
+      if (!user) throw new Error("No user returned from API");
 
-      // ✅ Update fitness level
-      await updateUserFitnessLevel(fitnessLevel);
+      localStorage.setItem("user", JSON.stringify(user));
+      console.log("✅ Goal updated:", user.goal);
 
-      // ✅ Assign a matching workout routine
-      const response = await assignWorkoutRoutine();
-      console.log("🏋️ Routine assigned:", response);
-
-      // ✅ Save user info locally (optional)
-      const updatedUser = response.user || response.routine?.user;
-      if (updatedUser) {
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-      }
-
-      // ✅ Navigate to home page
-      navigate("/home");
+      // Move to fitness level selection
+      navigate("/fitness-level");
     } catch (err) {
       console.error("❌ Error in goal setup:", err);
       setError("Failed to set up your workout routine. Please try again.");
@@ -60,21 +47,7 @@ export default function GoalSelection() {
           </select>
         </div>
 
-        <div>
-          <label>Fitness Level:</label>
-          <select
-            value={fitnessLevel}
-            onChange={(e) => setFitnessLevel(e.target.value)}
-            required
-          >
-            <option value="">--Select Level--</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </select>
-        </div>
-
-        <button type="submit">Get My Routine</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
