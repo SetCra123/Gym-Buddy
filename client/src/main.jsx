@@ -8,6 +8,7 @@ import ProfileSetup from "./pages/ProfileSetup";
 import GoalSelection from "./pages/GoalSelection";
 import ProtectedRoute from "./components/ProtectedRoutes"; // ✅ renamed to match component name
 import FitnessLevelSelection from "./pages/FitnessSelection";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 // You can later add an Error component if you have one
 // import Error from './pages/Error';

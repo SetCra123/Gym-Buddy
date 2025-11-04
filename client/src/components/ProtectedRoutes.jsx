@@ -1,8 +1,10 @@
 // src/components/ProtectedRoute.jsx
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-export default function ProtectedRoute() {
+export default function ProtectedRoutes() {
+  const location = useLocation();
   let user = null;
+
   try {
     const storedUser = localStorage.getItem("user");
     user = storedUser ? JSON.parse(storedUser) : null;
@@ -14,26 +16,26 @@ export default function ProtectedRoute() {
     return <Navigate to="/login" />;
   }
 
-  // Pull key fields for checking profile progress
-  const { height, weight, goal, fitness_level, profileComplete } = user;
+  const { age, height, weight, goal, fitness_level, profileComplete } = user;
 
-  // ✅ Determine where they should go next
-  if (!height || !weight) {
+  // ✅ If profile complete, allow normal access to app
+  if (profileComplete) return <Outlet />;
+
+  // ✅ If missing basic info and not already on /profile-update → redirect there
+  if ((!age || !height || !weight) && location.pathname !== "/profile-update") {
     return <Navigate to="/profile-update" />;
   }
 
-  if (!goal) {
+  // ✅ If missing goal and not already on /goals → redirect there
+  if (!goal && location.pathname !== "/goals") {
     return <Navigate to="/goals" />;
   }
 
-  if (!fitness_level) {
+  // ✅ If missing fitness level and not already on /fitness-level → redirect there
+  if (!fitness_level && location.pathname !== "/fitness-level") {
     return <Navigate to="/fitness-level" />;
   }
 
-  if (profileComplete) {
-    return <Outlet />; // profile complete → continue to home or whatever route
-  }
-
-  // ✅ Default fallback if none of the above triggered
-  return <Navigate to="/profile-update" />;
+  // ✅ Otherwise render the intended route
+  return <Outlet />;
 }

@@ -19,14 +19,15 @@ function ProfileSetup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await updateUserProfile(formData);
+      const updatedUser = await updateUserProfile(formData);
+      console.log("✅ Response from API:", updatedUser);
   
-      if (!user) {
+      if (!updatedUser) {
         throw new Error("No user returned from API");
       }
   
-      localStorage.setItem("user", JSON.stringify(user));
-      console.log("✅ Profile updated successfully:", user);
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      console.log("✅ Profile updated successfully:", updatedUser);
       navigate("/goals");
     } catch (err) {
       console.error("❌ Error updating profile:", err);

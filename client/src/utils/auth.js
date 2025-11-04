@@ -29,12 +29,12 @@ class AuthService {
 
   getToken() {
     // Retrieves the user token from localStorage
-    return localStorage.getItem('id_token');
+    return localStorage.getItem("token");
   }
 
   login(token, user, redirectPath = '/home') {
     // Save user token to localStorage
-    localStorage.setItem('id_token', token);
+    localStorage.setItem("token", token);
     if (user) {
        localStorage.setItem('user', JSON.stringify(user));
     }
@@ -44,7 +44,7 @@ class AuthService {
 
   logout() {
     // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token');
+    localStorage.removeItem("token");
     // this will reload the page and reset the state of the application
     window.location.assign('/');
   }

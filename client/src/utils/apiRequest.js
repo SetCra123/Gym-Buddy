@@ -1,12 +1,29 @@
+// apiRequest.js
 export default async function apiRequest(url, options, errorMessage) {
   try {
-    const res = await fetch(url, options);
-    if (!res.ok) {
-      throw new Error(errorMessage || `Request failed with status ${res.status}`);
+    console.log("📤 Fetching:", url, options);
+
+    const response = await fetch(url, options);
+    console.log("📥 Raw response status:", response.status);
+
+    let data;
+    try {
+      data = await response.json();
+    } catch (err) {
+      console.warn("⚠️ No JSON in response");
+      data = null;
     }
-    return await res.json();
+
+    console.log("✅ Parsed response data:", data);
+
+    if (!response.ok) {
+      throw new Error(data?.message || errorMessage || "API request failed");
+    }
+
+    // ✅ Always return parsed data
+    return data;
   } catch (err) {
-    console.error("API Error", err);
+    console.error("❌ API request error:", err);
     throw err;
   }
 }

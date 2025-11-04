@@ -122,7 +122,8 @@ module.exports = {
       const updatedUser = await user.save();
       const populatedUser = await User.findById(updatedUser._id)
         .populate("workout_routine");
-  
+        console.log("✅ Sending updated user back to frontend:", populatedUser);
+        
       res.json(populatedUser);
     } catch (err) {
       console.error("❌ Error updating user profile:", err);
