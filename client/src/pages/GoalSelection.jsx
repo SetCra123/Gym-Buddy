@@ -15,7 +15,7 @@ export default function GoalSelection() {
     setError("");
 
     try {
-      const { user } = await updateUserGoal({ goal });
+      const  user  = await updateUserGoal(goal);
       if (!user) throw new Error("No user returned from API");
 
       localStorage.setItem("user", JSON.stringify(user));

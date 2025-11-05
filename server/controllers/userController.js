@@ -131,21 +131,72 @@ module.exports = {
     }
     },
 
+    async updateUserGoal(req, res) {
+      try {
+        const { goal } = req.body;
+        if (Array.isArray(goal)) goal = goal[0];
+
+        const user = await User.findByIdAndUpdate(
+          req.user._id,
+          { goal },
+          { new: true }
+        );
+
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+        console.log("✅ Goal updated:", user.goal);
+        res.json(user);
+      } catch (err) {
+        console.error("❌ Error updating goal:", err);
+        res.status(500).json({message: "Failed to update goal"});
+      }
+    
+     },
+    
+    async updateFitnessLevel(req, res){
+      try {
+        const { fitness_level } = req.body;
+        if (Array.isArray(fitness_level)) fitness_level = fitness_level[0];
+        
+        console.log("📥 Received update-fitness request:", req.body);
+        
+        const user = await User.findByIdAndUpdate(
+          req.user._id,
+          { fitness_level },
+          { new: true }
+        );
+        if (!user) {
+          console.log("❌ No user found for:", user);
+          return res.status(404).json({ message: "User not found" });
+        }
+        res.json(user);
+      } catch (err) {
+        console.error("❌ Error updating fitness level:", err);
+        res.status(500).json({message: "Failed to update fitness level"});
+      }
+    },
 
 async assignWorkoutRoutine(req, res) {
   try {
-    const user = await User.findById(req.user._id)
+    
+    const user = await User.findById(req.user._id);
 
-    if(!user.goal || !user.fitness_level){}
-      return res.status(400).json({
-        message: "User must have a goal and fitness level before assigning a routine",
-      });
+    if(!user.goal || !user.fitness_level){
+      const refreshedUser = await User.findById(req.user._id);
+      if (!refreshedUser.goal || refreshedUser.fitness_level) {
+        return res.status(400).json({
+          message: "User must have a goal and fitness before assigning a routine"
+        });
+       }
+      }
+
+      const routine = await WorkoutRoutine.findOne({
+        goal: user.goal,
+        fitness_level: user.fitness_level,
+      }).populate("exercises");
     
     // Find a routine that matches goal and fitness
-    const routine = await WorkoutRoutine.findOne({
-      goal: user.goal,
-      fitness_level: user.fitness_level,
-    }).populate("excercises");
     if (!routine) {
       return res.status(404).json({ 
         message: `No routine found for goal: ${user.goal} and fitness level: ${user.fitness_level}`,
@@ -153,14 +204,22 @@ async assignWorkoutRoutine(req, res) {
     }  
 
     // Assign the routine to the user
-    user.workout_routine = routine._id;
+    user.workout_routine = [routine._id];
+    user.profileComplete = true;
     await user.save();
+
+    const populatedUser = await User.findById(user._id)
+      .populate({
+        path: "workout_routine",
+        populate: { path: "exercises" },
+      });
 
     console.log(`🏋️ Assigned ${routine.name} to ${user.username}`);
 
     // Return routine details
     res.json({
       message: "Routine assigned successfully!",
+      user: populatedUser,
       routine,
     });
   } catch (err) {
@@ -169,35 +228,6 @@ async assignWorkoutRoutine(req, res) {
   }
 },
 
-async updateUserGoal(req, res) {
-  try {
-    const { goal } = req.body;
-    const user = await User.findByIdAndUpdate(
-      req.user_.id,
-      { goal },
-      { new: true }
-    );
-    res.json(user);
-  } catch (err) {
-    console.error("❌ Error updating goal:", err);
-    res.status(500).json({message: "Failed to update goal"});
-  }
 
- },
-
-async updateFitnessLevel(req, res){
-  try {
-    const { fitness_level } = req.body;
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { fitness_level },
-      { new: true }
-    );
-    res.json(user);
-  } catch (err) {
-    console.error("❌ Error updating fitness level:", err);
-    res.status(500).json({message: "Failed to update fitness level"});
-  }
-}
 
 };

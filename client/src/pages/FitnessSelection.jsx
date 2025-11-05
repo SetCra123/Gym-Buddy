@@ -5,13 +5,14 @@ import { updateUserFitnessLevel, assignWorkoutRoutine } from "../utils/API";
 
 export default function FitnessSelection() {
   const [fitnessLevel, setFitnessLevel] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // 1️⃣ Update fitness level
-      const { user } = await updateUserFitnessLevel({ fitness_level: fitnessLevel });
+      const user = await updateUserFitnessLevel(fitnessLevel);
       if (!user) throw new Error("No user returned from API");
 
       localStorage.setItem("user", JSON.stringify(user));
@@ -20,11 +21,6 @@ export default function FitnessSelection() {
       // 2️⃣ Assign workout routine based on goal + fitness level
       const routineResponse = await assignWorkoutRoutine();
       console.log("🏋️ Routine assigned:", routineResponse.routine);
-
-      // 3️⃣ Save routine and mark as complete
-      const updatedUser = { ...user, workout_routine: routineResponse.routine, profileComplete: true };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-
       // 4️⃣ Navigate to home page
       navigate("/home");
     } catch (err) {

@@ -7,10 +7,10 @@ import Signup from "./pages/SignUp";
 import ProfileSetup from "./pages/ProfileSetup";
 import GoalSelection from "./pages/GoalSelection";
 import ProtectedRoute from "./components/ProtectedRoutes"; // ✅ renamed to match component name
-import FitnessLevelSelection from "./pages/FitnessSelection";
+import FitnessSelection from "./pages/FitnessSelection";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
-// You can later add an Error component if you have one
+// add an Error component//
 // import Error from './pages/Error';
 
 const router = createBrowserRouter([
@@ -32,26 +32,45 @@ const router = createBrowserRouter([
         path: "signup",
         element: <Signup />,
       },
-
+      { 
+        path: "profile-update", 
+        element: <ProfileSetup /> 
+      }, 
+      {
+        path: "goals", 
+        element: <GoalSelection /> 
+      },
+      { 
+        path: "fitness-level", 
+        element: <FitnessSelection /> 
+      },
+      
+      { path: "home", 
+        element: <Home />,
+      },
+      
+        ],
+        
+      }
       // Protected routes (user must be logged in)
-      {
-        element: <ProtectedRoute requiresProfile={true} />,
-        children: [
-          { path: "home", element: <Home /> },
-          { path: "goals", element: <GoalSelection /> }, // ✅ user must have profile to access
-          { path: "fitness-level", element: <FitnessLevelSelection /> }, // ✅ user must have profile to access
-        ],
-      },
+  //     {
+  //       element: <ProtectedRoute requiresProfile={false} />,
+  //       children: [
+  //         { path: "home", element: <Home /> },
+  //         { path: "goals", element: <GoalSelection /> }, // ✅ user must have profile to access
+  //         { path: "fitness-level", element: <FitnessLevelSelection /> }, // ✅ user must have profile to access
+  //       ],
+  //     },
 
-      // Route for profile setup (incomplete profile)
-      {
-        element: <ProtectedRoute requiresProfile={false} />,
-        children: [
-          { path: "profile-update", element: <ProfileSetup /> },
-        ],
-      },
-    ],
-  },
+  //     // Route for profile setup (incomplete profile)
+  //     {
+  //       element: <ProtectedRoute requiresProfile={false} />,
+  //       children: [
+  //         { path: "profile-update", element: <ProfileSetup /> },
+  //       ],
+  //     },
+  //   ],
+  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

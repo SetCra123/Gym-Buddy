@@ -71,8 +71,9 @@ export const updateUserProfile = async (profileData) => {
 };
 
 // ✅ Assign workout routine
-export const assignWorkoutRoutine = async (routineId) => {
+export const assignWorkoutRoutine = async () => {
   const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return apiRequest(
     "/api/users/assign-routine",
@@ -82,7 +83,7 @@ export const assignWorkoutRoutine = async (routineId) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ routineId }),
+      body: JSON.stringify(),
     },
     "Failed to assign workout routine"
   );
@@ -98,7 +99,7 @@ export async function updateUserGoal(goal) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({ goal }),
     },
@@ -120,7 +121,7 @@ export async function updateUserFitnessLevel(fitness_level) {
       },
       body: JSON.stringify({ fitness_level }),
     },
-    `Failed to update fitness level: ${fitness_level}`
+    `Failed to update fitness level`
   );
 }
 
