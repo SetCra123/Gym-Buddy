@@ -1,39 +1,44 @@
 import { useEffect, useState } from "react";
-import { getUserProfile } from "../utils/API";
 
-function Home() {
+export default function Home() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    async function fetchUser() {
-      const profile = await getUserProfile();
-      setUser(profile);
-    }
-    fetchUser();
+    // ✅ Load the fully populated user from localStorage
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(storedUser);
   }, []);
 
   if (!user) return <p>Loading...</p>;
 
-  return (
-    <div className="home">
-      <h2>Welcome, {user.username}!</h2>
-      <p>Goal: {user.goal}</p>
-      <p>Fitness Level: {user.fitness_level}</p>
-      <p>Height: {user.height}</p>
-      <p>Weight: {user.weight} lbs</p>
+  const routine = user.workout_routine?.[0]; // since workout_routine is an array
 
-      <h3>Your Workout Routine:</h3>
-      {user.workout_routine?.exercises?.length ? (
-        <ul>
-          {user.workout_routine.exercises.map((ex, i) => (
-            <li key={i}>{ex}</li>
-          ))}
-        </ul>
+  return (
+    <div className="home-page">
+      <h1>Welcome, {user.username}!</h1>
+
+      {routine ? (
+        <div className="routine-container">
+          <h2>Your Assigned Routine: {routine.name}</h2>
+          <p>Goal: {routine.goal}</p>
+          <p>Fitness Level: {routine.fitness_level}</p>
+
+          <h3>Exercises:</h3>
+          <ul>
+            {routine.exercises && routine.exercises.length > 0 ? (
+              routine.exercises.map((exercise) => (
+                <li key={exercise._id}>
+                  <strong>{exercise.name}</strong> - {exercise.muscleGroup} ({exercise.description})
+                </li>
+              ))
+            ) : (
+              <li>No exercises found</li>
+            )}
+          </ul>
+        </div>
       ) : (
-        <p>No routine assigned yet.</p>
+        <p>You don't have a routine assigned yet.</p>
       )}
     </div>
   );
 }
-
-export default Home;

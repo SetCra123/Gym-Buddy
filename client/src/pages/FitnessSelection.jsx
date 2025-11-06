@@ -21,6 +21,15 @@ export default function FitnessSelection() {
       // 2️⃣ Assign workout routine based on goal + fitness level
       const routineResponse = await assignWorkoutRoutine();
       console.log("🏋️ Routine assigned:", routineResponse.routine);
+      
+      // ✅ Update stored user with workout routine
+      const updatedUser = {
+        ...JSON.parse(localStorage.getItem("user")),
+        workout_routine: [routineResponse.routine],
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      console.log("💾 User updated in localStorage:", updatedUser);
+
       // 4️⃣ Navigate to home page
       navigate("/home");
     } catch (err) {
