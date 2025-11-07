@@ -90,29 +90,55 @@ export default function Home() {
         <div className="routine-container">
           <h2>Your Assigned Routine: {routine.name}</h2>
           <p>
-            <strong>Goal:</strong> {routine.goal}
+            <strong>Goal:</strong> {routine.goal} | <strong>Level:</strong>{" "}
+            {routine.fitness_level}
           </p>
           <p>
-            <strong>Fitness Level:</strong> {routine.fitness_level}
+            <em>Duration:</em> {routine.duration} minutes
           </p>
+          {routine.notes && <p>{routine.notes}</p>}
 
           <h3>Exercises:</h3>
-          <ul>
+          <ul className="exercise-list">
             {routine.exercises && routine.exercises.length > 0 ? (
               routine.exercises.map((exercise) => (
-                <li key={exercise._id}>
-                  <strong>{exercise.name}</strong> – {exercise.muscleGroup} (
-                  {exercise.difficulty})
+                <li key={exercise._id} className="exercise-item">
+                  <details>
+                    <summary className="exercise-summary">
+                      <strong>{exercise.name}</strong> —{" "}
+                      <em>{exercise.muscleGroup}</em>
+                    </summary>
+                    <div className="exercise-details">
+                      {exercise.description && (
+                        <p>{exercise.description}</p>
+                      )}
+                      <p>
+                        <strong>Reps:</strong> {exercise.reps || "N/A"} |{" "}
+                        <strong>Sets:</strong> {exercise.sets || "N/A"}
+                      </p>
+                      <p>
+                        <strong>Equipment:</strong>{" "}
+                        {exercise.equipment || "None"}
+                      </p>
+                      {exercise.calories_burned && (
+                        <p>
+                          <strong>Calories Burned:</strong>{" "}
+                          {exercise.calories_burned}
+                        </p>
+                      )}
+                    </div>
+                  </details>
                 </li>
               ))
             ) : (
-              <li>No exercises found</li>
+              <li>No exercises found.</li>
             )}
           </ul>
         </div>
       ) : (
         <p>You don't have a routine assigned yet.</p>
       )}
+    
 
       {/* ✅ Edit Profile Button */}
       <button className="edit-profile-btn" onClick={handleEditClick}>
