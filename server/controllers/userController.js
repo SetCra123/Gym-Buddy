@@ -10,6 +10,10 @@ module.exports = {
     async getSingleUser({ user = null, params }, res) {
         const foundUser = await User.findOne({
             $or: [{ _id: user ? user._id : params.id }, { username: params.username }],
+        })
+        .populate({
+          path: "workout_routine",
+          populate: { path: "exercises" },
         });
 
         if (!foundUser) {

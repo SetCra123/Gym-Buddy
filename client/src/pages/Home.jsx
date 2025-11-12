@@ -1,66 +1,85 @@
 import { useEffect, useState } from "react";
-import { getUsers, updateUserProfile, assignWorkoutRoutine } from "../utils/API"; // ✅ make sure these exist
+import { getUsers, updateUserProfile, assignWorkoutRoutine } from "../utils/API";
+import { logout } from "../utils/API";
 import "../Home.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [expandedExercise, setExpandedExercise] = useState(null);
   const [updatedProfile, setUpdatedProfile] = useState({
     goal: "",
     fitness_level: "",
   });
 
-  // ✅ Load user from localStorage when the component mounts
+  // Load user from localStorage or fetch from API
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      setUser(storedUser);
-    }
-
-    // ✅ Optionally refresh from API to keep it in sync
-    async function refreshUser() {
+    const loadUser = async () => {
       try {
-        const freshUser = await getUsers();
-        if (freshUser) {
-          setUser(freshUser);
-          localStorage.setItem("user", JSON.stringify(freshUser));
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+
+        if (storedUser) {
+          setUser(storedUser);
+
+          // If user has goal but no routine, assign one
+          if (
+            storedUser.goal &&
+            (!storedUser.workout_routine || storedUser.workout_routine.length === 0)
+          ) {
+            const newRoutine = await assignWorkoutRoutine();
+            const updatedUser = { ...storedUser, workout_routine: [newRoutine.routine] };
+            setUser(updatedUser);
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+          }
+        } else {
+          // Fetch from API if not in localStorage
+          const apiUser = await getUsers();
+          if (apiUser) {
+            // If no routine, assign one based on goal
+            let userData = apiUser;
+            if (!apiUser.workout_routine || apiUser.workout_routine.length === 0) {
+              const newRoutine = await assignWorkoutRoutine();
+              userData = { ...apiUser, workout_routine: [newRoutine.routine] };
+            }
+            setUser(userData);
+            localStorage.setItem("user", JSON.stringify(userData));
+          }
         }
       } catch (err) {
-        console.error("❌ Error fetching user:", err);
+        console.error("❌ Error loading user:", err);
       }
-    }
+    };
 
-    refreshUser();
+    loadUser();
   }, []);
 
   if (!user) return <p>Loading...</p>;
 
   const routine = user.workout_routine?.[0] || user.workout_routine;
 
-  // ✅ Open modal and preload user info
+  const toggleExercise = (id) => {
+    setExpandedExercise(expandedExercise === id ? null : id);
+  };
+
   const handleEditClick = () => {
     setUpdatedProfile({
-      goal: user.goal?.[0] || user.goal || "",
-      fitness_level: user.fitness_level?.[0] || user.fitness_level || "",
+      goal: user.goal || "",
+      fitness_level: user.fitness_level || "",
     });
     setShowModal(true);
   };
 
-  // ✅ Handle input changes in modal
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUpdatedProfile((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setUpdatedProfile((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ Save profile changes and reassign new routine
   const handleSave = async () => {
     try {
       console.log("📤 Updating profile:", updatedProfile);
 
-      // 1️⃣ Update user info (goal / fitness)
+      // 1️⃣ Update user info
       const updatedUser = await updateUserProfile(updatedProfile);
       console.log("✅ Updated user:", updatedUser);
 
@@ -73,13 +92,17 @@ export default function Home() {
         workout_routine: [newRoutineResponse.routine],
       };
 
-      // 3️⃣ Save new data to localStorage and state
+      // 3️⃣ Save and update UI
       localStorage.setItem("user", JSON.stringify(updatedUserWithRoutine));
       setUser(updatedUserWithRoutine);
       setShowModal(false);
     } catch (err) {
-      console.error("❌ Error updating profile or reassigning routine:", err);
+      console.error("❌ Error updating profile or assigning routine:", err);
     }
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -90,57 +113,80 @@ export default function Home() {
         <div className="routine-container">
           <h2>Your Assigned Routine: {routine.name}</h2>
           <p>
-            <strong>Goal:</strong> {routine.goal} | <strong>Level:</strong>{" "}
-            {routine.fitness_level}
+            <strong>Goal:</strong> {routine.goal} |{" "}
+            <strong>Level:</strong> {routine.fitness_level}
           </p>
-          <p>
-            <em>Duration:</em> {routine.duration} minutes
-          </p>
-          {routine.notes && <p>{routine.notes}</p>}
+          <p><em>Duration:</em> {routine.duration} minutes</p>
 
-          <h3>Exercises:</h3>
-          <ul className="exercise-list">
+          <h3>Exercises</h3>
+          <div className="exercise-list">
             {routine.exercises && routine.exercises.length > 0 ? (
-              routine.exercises.map((exercise) => (
-                <li key={exercise._id} className="exercise-item">
-                  <details>
-                    <summary className="exercise-summary">
+              routine.exercises.map((exercise) => {
+                const isOpen = expandedExercise === exercise._id;
+                return (
+                  <motion.div
+                    key={exercise._id}
+                    layout
+                    className="exercise-card"
+                    initial={{ borderRadius: 12 }}
+                    transition={{ layout: { duration: 0.3, type: "spring" } }}
+                  >
+                    <motion.div
+                      layout="position"
+                      className="exercise-header"
+                      onClick={() => toggleExercise(exercise._id)}
+                    >
                       <strong>{exercise.name}</strong> —{" "}
                       <em>{exercise.muscleGroup}</em>
-                    </summary>
-                    <div className="exercise-details">
-                      {exercise.description && (
-                        <p>{exercise.description}</p>
+                      <motion.span
+                        className="arrow"
+                        animate={{ rotate: isOpen ? 90 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        ▶
+                      </motion.span>
+                    </motion.div>
+
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          key="content"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="exercise-details"
+                        >
+                          {exercise.description && <p>{exercise.description}</p>}
+                          <p>
+                            <strong>Reps:</strong> {exercise.reps || "N/A"} |{" "}
+                            <strong>Sets:</strong> {exercise.sets || "N/A"}
+                          </p>
+                          <p>
+                            <strong>Equipment:</strong>{" "}
+                            {exercise.equipment || "None"}
+                          </p>
+                          {exercise.calories_burned && (
+                            <p>
+                              <strong>Calories Burned:</strong>{" "}
+                              {exercise.calories_burned}
+                            </p>
+                          )}
+                        </motion.div>
                       )}
-                      <p>
-                        <strong>Reps:</strong> {exercise.reps || "N/A"} |{" "}
-                        <strong>Sets:</strong> {exercise.sets || "N/A"}
-                      </p>
-                      <p>
-                        <strong>Equipment:</strong>{" "}
-                        {exercise.equipment || "None"}
-                      </p>
-                      {exercise.calories_burned && (
-                        <p>
-                          <strong>Calories Burned:</strong>{" "}
-                          {exercise.calories_burned}
-                        </p>
-                      )}
-                    </div>
-                  </details>
-                </li>
-              ))
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })
             ) : (
-              <li>No exercises found.</li>
+              <p>No exercises found.</p>
             )}
-          </ul>
+          </div>
         </div>
       ) : (
         <p>You don't have a routine assigned yet.</p>
       )}
-    
 
-      {/* ✅ Edit Profile Button */}
       <button className="edit-profile-btn" onClick={handleEditClick}>
         ✏️ Edit Profile
       </button>
@@ -152,15 +198,12 @@ export default function Home() {
             <h2>Edit Your Profile</h2>
             <label>
               Goal:
-              <select
-                name="goal"
-                value={updatedProfile.goal}
-                onChange={handleChange}
-              >
+              <select name="goal" value={updatedProfile.goal} onChange={handleChange}>
                 <option value="">Select a goal</option>
                 <option value="lean">Lean</option>
                 <option value="toned">Toned</option>
-                <option value="muscular">Muscular</option>
+                <option value="strength">Strength</option>
+                <option value="bulk">Bulk</option>
               </select>
             </label>
 
@@ -185,6 +228,11 @@ export default function Home() {
           </div>
         </div>
       )}
+    <button className="logout-btn" onClick={handleLogout}>
+      🚪 Log Out
+    </button>
+    
+    
     </div>
   );
 }

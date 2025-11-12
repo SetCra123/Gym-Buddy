@@ -19,7 +19,7 @@ const exerciseSchema = new Schema (
       },
       equipment: { 
         type: String, 
-        enum: ['Bodyweight', 'Barbell', 'Dumbbells', 'Pull-up Bar', 'Parallel Bars'], 
+        enum: ['Bodyweight', 'Barbell', 'Dumbbells', 'Pull-up Bar', 'Parallel Bars', 'Weighted Vest'], 
       },
       goal: [{
         type: String,

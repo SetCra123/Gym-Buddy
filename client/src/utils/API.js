@@ -35,17 +35,25 @@ export const createUser = async (userData) => {
   );
 };
 
-// ✅ Login existing user
+// Login existing user
 export const login = async (userData) => {
-  const res = await fetch("/api/users/login", {
+  const { token } = await apiRequest("/api/users/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
-  });
+  },
+  "Login failed");
 
-  if (!res.ok) throw new Error("Login failed");
-  const data = await res.json();
-  return data; // { token, user }
+  const user = await apiRequest(
+    "/api/users/me",
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}`},
+    },
+    "Failed to fetch user profile"
+  );
+  
+  return { token, user };
 };
 
 // ✅ Update user's profile (age, height, weight, etc.)
@@ -169,4 +177,13 @@ export const createNewWorkoutRoutine = async (userData) => {
     },
     "Failed to create new workout"
   );
+};
+
+export const logout = () => {
+  // 🧹 Clear all auth data
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  // 🚪 Redirect to login page
+  window.location.href = "/login";
 };

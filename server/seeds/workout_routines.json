@@ -4,47 +4,108 @@
     "fitness_level": "Beginner",
     "duration": "4 weeks",
     "notes": "Focus on bodyweight exercises and conditioning.",
-    "exercises": [
-      "Push-Ups",
-      "Squats",
-      "Plank",
-      "Lunges"
-    ]
+    "exercises": ["Push-Ups", "Squats", "Plank", "Lunges"]
   },
   {
-    "goal": "Strength",
+    "goal": "Lean",
     "fitness_level": "Intermediate",
-    "duration": "4 weeks",
-    "notes": "Emphasis on compound lifts and progressive overload.",
-    "exercises": [
-      "Bench Press",
-      "Pull-Ups",
-      "Barbell Squat",
-      "Deadlift"
-    ]
+    "duration": "6 weeks",
+    "notes": "Combine cardio intervals with moderate resistance training.",
+    "exercises": ["Jump Squats", "Burpees", "Mountain Climbers", "Pull-Ups"]
   },
   {
-    "goal": "Bulk",
+    "goal": "Lean",
     "fitness_level": "Advanced",
-    "duration": "6 weeks",
-    "notes": "Heavier weights, lower reps for maximum hypertrophy.",
-    "exercises": [
-      "Barbell Squat",
-      "Bench Press",
-      "Deadlift",
-      "Dumbbell Shoulder Press"
-    ]
+    "duration": "8 weeks",
+    "notes": "High-intensity training with short rest periods for maximum calorie burn.",
+    "exercises": ["Clean and Press", "Deadlift", "Thrusters", "Kettlebell Swings"]
   },
+
   {
     "goal": "Toned",
     "fitness_level": "Beginner",
     "duration": "4 weeks",
     "notes": "Higher reps and bodyweight work to tone and tighten muscles.",
-    "exercises": [
-      "Tricep Dips",
-      "Push-Ups",
-      "Lunges",
-      "Plank"
-    ]
+    "exercises": ["Tricep Dips", "Push-Ups", "Lunges", "Plank"]
+  },
+  {
+    "goal": "Toned",
+    "fitness_level": "Intermediate",
+    "duration": "6 weeks",
+    "notes": "Use light weights and moderate resistance to define muscle tone.",
+    "exercises": ["Dumbbell Curls", "Lateral Raises", "Step-Ups", "Cable Crunches"]
+  },
+  {
+    "goal": "Toned",
+    "fitness_level": "Advanced",
+    "duration": "8 weeks",
+    "notes": "Advanced isolation movements and circuit training for muscle definition.",
+    "exercises": ["Incline Dumbbell Press", "Leg Extensions", "Tricep Kickbacks", "Hanging Leg Raises"]
+  },
+
+  {
+    "goal": "Strength",
+    "fitness_level": "Beginner",
+    "duration": "4 weeks",
+    "notes": "Foundational strength training with basic compound movements.",
+    "exercises": ["Bodyweight Squats", "Incline Push-Ups", "Resistance Band Rows", "Plank"]
+  },
+  {
+    "goal": "Strength",
+    "fitness_level": "Intermediate",
+    "duration": "6 weeks",
+    "notes": "Emphasis on compound lifts and progressive overload.",
+    "exercises": ["Bench Press", "Pull-Ups", "Barbell Squat", "Deadlift"]
+  },
+  {
+    "goal": "Strength",
+    "fitness_level": "Advanced",
+    "duration": "8 weeks",
+    "notes": "Powerlifting-style program focusing on heavy compound lifts.",
+    "exercises": ["Front Squat", "Barbell Row", "Overhead Press", "Deadlift"]
+  },
+
+  {
+    "goal": "Bulk",
+    "fitness_level": "Beginner",
+    "duration": "4 weeks",
+    "notes": "Focus on form and progressive overload with basic compound lifts.",
+    "exercises": ["Dumbbell Bench Press", "Goblet Squat", "Lat Pulldown", "Dumbbell Deadlift"]
+  },
+  {
+    "goal": "Bulk",
+    "fitness_level": "Intermediate",
+    "duration": "6 weeks",
+    "notes": "Moderate-heavy weight with hypertrophy rep ranges.",
+    "exercises": ["Barbell Bench Press", "Barbell Squat", "Bent Over Row", "Seated Shoulder Press"]
+  },
+  {
+    "goal": "Bulk",
+    "fitness_level": "Advanced",
+    "duration": "8 weeks",
+    "notes": "Heavier weights, lower reps for maximum hypertrophy.",
+    "exercises": ["Barbell Squat", "Bench Press", "Deadlift", "Dumbbell Shoulder Press"]
+  },
+
+  {
+    "goal": "Endurance",
+    "fitness_level": "Beginner",
+    "duration": "4 weeks",
+    "notes": "Basic endurance work to build stamina and consistency.",
+    "exercises": ["Jump Rope", "Bodyweight Squats", "Push-Ups", "Plank"]
+  },
+  {
+    "goal": "Endurance",
+    "fitness_level": "Intermediate",
+    "duration": "6 weeks",
+    "notes": "Circuit-style training to build cardiovascular and muscular endurance.",
+    "exercises": ["Jump Lunges", "Kettlebell Swings", "Burpees", "Mountain Climbers"]
+  },
+  {
+    "goal": "Endurance",
+    "fitness_level": "Advanced",
+    "duration": "8 weeks",
+    "notes": "High-intensity circuits combining resistance and cardio for maximum stamina.",
+    "exercises": ["Clean and Jerk", "Snatch", "Sprint Intervals", "Plyometric Push-Ups"]
   }
 ]

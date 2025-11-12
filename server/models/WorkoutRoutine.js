@@ -10,7 +10,7 @@ const workoutRoutineSchema = new Schema(
     },
     goal: {
       type: String,
-      enum: ['lean', 'bulk', 'strength', 'toned'],
+      enum: ['lean', 'bulk', 'strength', 'toned', 'endurance'],
       required: true,
       set: v => v.toLowerCase(),
     },
