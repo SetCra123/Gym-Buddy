@@ -1,5 +1,98 @@
 [
   {
+    "name": "Jump Squats",
+    "muscleGroup": "Legs",
+    "fitness_level": "Intermediate",
+    "equipment": "Bodyweight",
+    "goal": ["Lean", "Toned"],
+    "description": "Improves balance, coordination, and lower-body strength.",
+    "reps":"10-12",
+    "sets": "4",
+    "duration":"30s rest between sets",
+    "caloriesBurned":"",
+    "videoUrl":""
+
+  },
+  {
+    "name": "Burpees",
+    "muscleGroup": "Legs",
+    "fitness_level": "Intermediate",
+    "equipment": "Bodyweight",
+    "goal": ["Lean", "Toned"],
+    "description": "Comprehensive full-body exercise, including legs and core.",
+    "reps":"12-15",
+    "sets": "4",
+    "duration":"45s rest between sets",
+    "caloriesBurned":"",
+    "videoUrl":""
+  },
+  {
+    "name": "Mountain Climbers",
+    "muscleGroup": "Legs",
+    "fitness_level": "Intermediate",
+    "equipment": "Bodyweight",
+    "goal": ["Lean", "Toned"],
+    "description": "High-intensity, low impact exercise, involves alternating bring each knee to chest",
+    "reps":"15-20",
+    "sets": "4",
+    "duration":"30s rest between sets",
+    "caloriesBurned":"",
+    "videoUrl":""
+  },
+  {
+    "name": "Pull-ups",
+    "muscleGroup": "Back",
+    "fitness_level": "Intermediate",
+    "equipment": "Bodyweight",
+    "goal": ["Lean", "Toned"],
+    "description": "Compound exercise that primarily works the back and biceps.",
+    "reps":"8-10",
+    "sets": "3",
+    "duration":"30s rest between sets",
+    "caloriesBurned":"",
+    "videoUrl":""
+  },
+  
+  {
+    "name": "Clean and Press",
+    "muscleGroup": "Legs",
+    "fitness_level": "Advanced",
+    "equipment": ["Barbell", "KettleBell"],
+    "goal": ["Bulk", "Strength"],
+    "description": "Builds strength and power, enhances muscle mass, and improves cardiovascular fitness.",
+    "reps":"6-8",
+    "sets": "3",
+    "duration":"60s rest between sets",
+    "caloriesBurned":"",
+    "videoUrl":""
+  },
+  {
+   "name": "Thrusters",
+    "muscleGroup": "Full-Body",
+    "fitness_level": "Advanced",
+    "equipment": ["Barbell", "KettleBell"],
+    "goal": ["Lean", "Strength"],
+    "description": "Exercise that combines a front squat and an overhead press, working the entire body.",
+    "reps":"8-10",
+    "sets": "3",
+    "duration":"60s rest between sets",
+    "caloriesBurned":"",
+    "videoUrl":"" 
+  },
+  {
+    "name": "Kettlebell Swings",
+    "muscleGroup": "Legs",
+    "fitness_level": "Advanced",
+    "equipment": ["KettleBell"],
+    "goal": ["Lean", "Strength"],
+    "description": "Exercise that uses a pendulum motion of the kettlebell, driven by the hips and legs.",
+    "reps":"10-12",
+    "sets": "3",
+    "duration":"45s rest between sets",
+    "caloriesBurned":"",
+    "videoUrl":"" 
+  },
+  {
     "name": "Push-Ups",
     "muscleGroup": "Chest",
     "fitness_level": "Beginner",
