@@ -47,10 +47,17 @@ mt-5 */
     color: #535bf2;
   }
   
-  body {
-    margin: 0;
+  .main-container {
     display: flex;
-    place-items: center;
+    align-items: center;
+    margin-left: 25em;
+    padding: 5em;
+  }
+  
+  
+  body {
+    display: flex;
+    align-items: center;
     min-width: 320px;
     min-height: 100vh;
   }

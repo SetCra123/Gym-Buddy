@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from 'react-bootstrap';
+import '../AuthForms.css';
 
 import { createUser } from '../utils/API';
 import Auth from '../utils/auth';
@@ -31,7 +32,8 @@ export default function Signup() {
 
     try {
       const response = await createUser(userFormData);
-      Auth.login(response.token, data.user, '/profile-update');
+      const { token, user } = response;
+      Auth.login(token, user, '/profile-update');
       showAlert(false);
       setUserFormData({ username:"", email:"", password:"" });
 
@@ -56,8 +58,8 @@ export default function Signup() {
 
     return (
         <>
-            <div className="d-flex justify-content-center align-items-center mt-5">
-                <div className="form-div bg-white p-3 rounded w-25 border">
+            <div className="auth-page-container">
+                <div className="auth-card">
                     <h2>Gym Buddy</h2>
                     <h3>Create an account and get a custom workout!</h3>
                     <Form noValidate validated={validated} onSubmit={handleFormSubmit}>

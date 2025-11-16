@@ -23,9 +23,7 @@
   }
   
   body {
-    margin: 0;
-    display: flex;
-    place-items: center;
+    align-items: center;
     min-width: 320px;
     min-height: 100vh;
   }
@@ -35,6 +33,14 @@
     line-height: 1.1;
   }
   
+
+.main-container {
+  display: flex;
+  align-items: center;
+  padding: 5em;
+  margin-right: 55em;
+}
+
   button {
     border-radius: 8px;
     border: 1px solid transparent;
@@ -71,7 +77,7 @@
 
 .form-div {
     padding: 5%;
-    margin-left: 31em;
+    margin-right: 31em;
      
 }
 

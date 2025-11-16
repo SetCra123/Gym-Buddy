@@ -107,17 +107,25 @@ export default function Home() {
 
   return (
     <div className="home-page">
-      <h1>Welcome, {user.username}!</h1>
+      <div className="user-info">
+        <h1>Welcome, {user.username}!</h1>
+        <h3>{user.height}</h3>
+        <h3>{user.weight}</h3>
+      </div>
 
       {routine ? (
-        <div className="routine-container">
+        <div className="routine-flex-container">
+          <div className="routine-info">
+         
           <h2>Your Assigned Routine: {routine.name}</h2>
-          <p>
-            <strong>Goal:</strong> {routine.goal} |{" "}
-            <strong>Level:</strong> {routine.fitness_level}
-          </p>
-          <p><em>Duration:</em> {routine.duration} minutes</p>
-
+           {/* Left Side - Routine Info */}
+            <div style = {{ flex: 1}}>
+              <p>
+                <strong>Goal:</strong> {routine.goal} |{" "}
+                <strong>Level:</strong> {routine.fitness_level}
+              </p>
+              <p><em>Duration:</em> {routine.duration}</p>
+            </div>
           <h3>Exercises</h3>
           <div className="exercise-list">
             {routine.exercises && routine.exercises.length > 0 ? (
@@ -181,8 +189,22 @@ export default function Home() {
             ) : (
               <p>No exercises found.</p>
             )}
+            </div>
+            </div>
+            
+            {/* Right Side - Workout Image */}
+            <motion.img
+                src="../src/assets/3d-cartoon-fitness-man-removebg-preview.png" 
+                alt="Workout Routine"
+                className="animated-pic w-64 h-64 object-cover rounded-2xl shadow-lg"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              />
+            
+            
           </div>
-        </div>
+        
       ) : (
         <p>You don't have a routine assigned yet.</p>
       )}

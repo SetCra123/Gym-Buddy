@@ -1,0 +1,89 @@
+.auth-page-container {
+    min-height: 100vh;
+    width: 100%;             
+    display: flex;
+    justify-content: center;       
+    align-items: center;           
+    background: #090909;           
+  
+    /* background image */
+    background-image: url("../src/assets/auth-background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 20px;
+}
+
+.auth-page-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* dark transparent overlay */
+    z-index: 0;
+  }
+  
+
+  /* Form card container */
+  .auth-card {
+    width: 100%;
+    max-width: 420px; 
+    display: flex; 
+    justify-content: center;       
+    align-items: center;              
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Heading styling */
+  .auth-card h2 {
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .auth-card h3 {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;       
+    align-items: center; 
+    color: #555;
+  }
+  
+  /* Bootstrap overrides */
+  .auth-card .form-control {
+    padding: 0.8rem;
+    border-radius: 8px;
+  }
+  
+  .auth-card button {
+    border-radius: 1px;
+    top: 1em;
+  }
+
+  .form-container {
+    display: flex;
+    align-items: right;
+    justify-content: center;
+
+  }
+
+  .form-control-email {
+    margin-left: 1.9em;
+  }
+  
+  /* fade animation 
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  */

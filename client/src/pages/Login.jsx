@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from "react-router-dom";
 
-import '../login.css';
+import '../AuthForms.css';
 import { login } from '../utils/API';
 import Auth from '../utils/auth';
 
@@ -62,15 +62,15 @@ export default function Login() {
 
     return (
         <>
-            <div className='d-flex justify-content-center align-items-center bg-secondary vh-100'>
-                <div className='bg-white p-3 rounded w-25'>
+            <div className='auth-page-container'>
+                <div className='auth-card'>
                     <h2>Gym Buddy</h2>
                     <h3>Login to get started now!</h3>
                     <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
                             Something went wrong with your login credentials!
                         </Alert>
-                        <Form.Group className="mb-3">
+                        <Form.Group className="form-container">
                             <Form.Label htmlFor="email">
                                 <strong>Email</strong>
                             </Form.Label>
@@ -80,13 +80,13 @@ export default function Login() {
                                 onChange={handleInputChange} 
                                 name="email" 
                                 value={userFormData.email}
-                                className="form-control rounded" 
+                                className="form-control-email rounded" 
                                 required
                             />
                             <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
                         </Form.Group>
 
-                        <Form.Group className="mb-3">
+                        <Form.Group className>
                             <Form.Label htmlFor="password">
                                 <strong>Password</strong>
                             </Form.Label>
