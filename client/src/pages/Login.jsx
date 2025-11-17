@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import '../AuthForms.css';
 import { login } from '../utils/API';
 import Auth from '../utils/auth';
+import Logo from '../assets/Gym-Buddy-Logo-nobg.png'
 
 export default function Login() {
     const [userFormData, setUserFormData] = useState({ email: '', password: '' });
@@ -64,7 +65,9 @@ export default function Login() {
         <>
             <div className='auth-page-container'>
                 <div className='auth-card'>
-                    <h2>Gym Buddy</h2>
+                    <div className="auth-logo-container">
+                        <img src={Logo} alt="Gym Buddy Logo" className="auth-logo" />
+                    </div>
                     <h3>Login to get started now!</h3>
                     <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
@@ -105,13 +108,13 @@ export default function Login() {
                             <Button 
                                 disabled={!(userFormData.email && userFormData.password)}
                                 type="submit" 
-                                className="btn btn-success w-100 rounded">
+                                className="btn btn-success w-100 rounded auth-btn">
                                 Login
                             </Button>
                         </div>
 
                         <div className="text-center">
-                            <p className="text-center mb-0 mt-3">Don't have an account?</p>
+                            <p className="text-center mb-0 mt-3 form-sup">Don't have an account?</p>
                             <Link to='/signup' className="btn btn-primary border w-100 rounded text-decoration-none">
                                 Sign-up
                             </Link>

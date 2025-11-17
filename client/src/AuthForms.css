@@ -64,10 +64,34 @@
     border-radius: 8px;
   }
   
-  .auth-card button {
-    border-radius: 1px;
-    top: 1em;
-  }
+  /* Main Button Style */
+.auth-btn {
+  background-color: #ff4747;       /* gym-style red */
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.auth-btn:hover {
+  background-color: #e43e3e;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+.auth-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
 
   .form-container {
     display: flex;
@@ -90,6 +114,42 @@
     color:#a8e10e;
   }
   
+
+/* Centers everything on the login page */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
+
+/* The card box over the background */
+.auth-card {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  padding: 30px 40px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 580px;
+  text-align: center;
+}
+
+/* Logo styling */
+.auth-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.auth-logo {
+  width: 360px;     /* adjust size */
+  object-fit: contain;
+}
+
+
   /* fade animation 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }

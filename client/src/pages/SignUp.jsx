@@ -5,6 +5,7 @@ import '../AuthForms.css';
 
 import { createUser } from '../utils/API';
 import Auth from '../utils/auth';
+import Logo from '../assets/Gym-Buddy-Logo-nobg.png';
 
 export default function Signup() {
   // set initial form state
@@ -60,7 +61,9 @@ export default function Signup() {
         <>
             <div className="auth-page-container">
                 <div className="auth-card">
-                    <h2>Gym Buddy</h2>
+                    <div className="auth-logo-container">
+                        <img src={Logo} alt="Gym Buddy Logo" className="auth-logo" />
+                    </div>
                     <h3>Create an account and get a custom workout!</h3>
                     <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant="danger">
@@ -116,7 +119,7 @@ export default function Signup() {
                             disabled={!(userFormData.username && userFormData.email && userFormData.password)}
                             type="submit" 
                             variant="success"
-                            className="btn btn-success w-100 rounded">
+                            className="btn btn-success w-100 rounded auth-btn">
                             Sign-up
                         </Button>
                         <div>

@@ -101,6 +101,24 @@ export default function Home() {
     }
   };
 
+  
+  const getRoutineImage = (goal) => {
+    switch (goal?.toLowerCase()) {
+      case "lean":
+        return "../src/assets/lean.png";
+      case "toned":
+        return "../src/assets/toned.png";
+      case "strength":
+        return "../src/assets/muscular.png";
+      case "bulk":
+        return "../src/assets/bulk.png";
+      default:
+        return "../src/assets/toned.png";
+    }
+  };
+  
+  
+  
   const handleLogout = () => {
     logout();
   };
@@ -194,8 +212,8 @@ export default function Home() {
             
             {/* Right Side - Workout Image */}
             <motion.img
-                src="../src/assets/3d-cartoon-fitness-man-removebg-preview.png" 
-                alt="Workout Routine"
+                src={getRoutineImage(routine.goal)} 
+                alt={`${routine.goal} routine`}
                 className="animated-pic w-64 h-64 object-cover rounded-2xl shadow-lg"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
