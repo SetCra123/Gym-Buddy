@@ -66,7 +66,7 @@ export default function Signup() {
                         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant="danger">
                             Something went wrong with your sign-up!
                         </Alert>
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-3 form-sup">
                             <Form.Label htmlFor="username">
                                 <strong>Username</strong>
                             </Form.Label>
@@ -82,7 +82,7 @@ export default function Signup() {
                             <Form.Control.Feedback type="invalid">Username is required!</Form.Control.Feedback>
                         </Form.Group>
 
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-3 form-sup">
                             <Form.Label htmlFor="email">
                                 <strong>Email</strong>
                             </Form.Label>
@@ -97,7 +97,7 @@ export default function Signup() {
                             />
                             <Form.Control.Feedback type="invalid">Email is required!</Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-3 form-sup">
                             <Form.Label htmlFor="password">
                                 <strong>Password</strong>
                             </Form.Label>
@@ -120,7 +120,7 @@ export default function Signup() {
                             Sign-up
                         </Button>
                         <div>
-                            <p className="text-center mb-0 mt-3">Already have an account?</p>
+                            <p className="text-center mb-0 mt-3 form-sup">Already have an account?</p>
                             <Link to='/login' className="btn btn-primary border w-100 rounded rext-decoration-nopne">
                                 Login
                             </Link>

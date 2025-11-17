@@ -86,7 +86,7 @@ export default function Login() {
                             <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
                         </Form.Group>
 
-                        <Form.Group className>
+                        <Form.Group className="form-container-pw">
                             <Form.Label htmlFor="password">
                                 <strong>Password</strong>
                             </Form.Label>
