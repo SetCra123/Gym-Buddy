@@ -25,7 +25,7 @@ const exerciseSchema = new Schema (
         type: String,
         ref: "Goal",
         required: true,
-        enum: ['Lean', 'Strength', 'Bulk', 'Toned']
+        enum: ['Lean', 'Strength', 'Bulk', 'Toned', 'Endurance', 'Sexy-Slender', 'Thick-Fit', 'Slim-Tone', 'Booty-Build']
       }],
       description: { 
         type: String,

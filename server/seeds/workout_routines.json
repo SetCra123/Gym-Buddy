@@ -107,5 +107,187 @@
     "duration": "8 weeks",
     "notes": "High-intensity circuits combining resistance and cardio for maximum stamina.",
     "exercises": ["Clean and Jerk", "Snatch", "Sprint Intervals", "Plyometric Push-Ups"]
+  },
+  {
+    "goal": "Sexy-Slender",
+    "fitness_level": "Beginner",
+    "duration": "8 weeks",
+    "notes": "Lean definition, feminine shape, core tightening, lower-body sculpting, and light upper-body toning.",
+    "exercises": [
+      "Glute Bridges",
+      "Side Leg Raises",
+      "Hip Abduction (Bodyweight)",
+      "Standing Oblique Crunches",
+      "Dead Bug",
+      "Plank with Hip Dips",
+      "Incline Push-ups",
+      "Tricep Kickbacks"
+    ]
+  },
+  {
+    "goal": "Sexy-Slender",
+    "fitness_level": "Intermediate",
+    "duration": "4 weeks",
+    "notes":"Lean definition, feminine shape, core tightening, lower-body sculpting, and light upper-body toning.",
+    "exercises": [
+      "Bulgarian Split Squats",
+      "Glute Bridges",
+      "Side Leg Raises",
+      "Hip Abduction (Bodyweight)",
+      "Standing Oblique Crunches",
+      "Plank with Hip Dips",
+      "Dead Bug",
+      "Light Dumbbell Shoulder Press",
+      "Incline Push-ups"
+    ]
+  },
+  {
+    "goal": "Sexy-Slender",
+    "fitness_level": "Advanced",
+    "duration": "4 weeks",
+    "notes":"Lean definition, feminine shape, core tightening, lower-body sculpting, and light upper-body toning.",
+    "exercises": [
+      "Bulgarian Split Squats",
+      "Glute Bridge March",
+      "Lateral Lunge to Leg Lift",
+      "Hip Abduction (Resistance Band)",
+      "Plank with Hip Dips",
+      "Dead Bug",
+      "V-Ups",
+      "Dumbbell Shoulder Press",
+      "Push-ups",
+      "Mountain Climbers"
+    ]
+  },
+  {
+    "goal": "Thick-Fit",
+    "fitness_level": "Beginner",
+    "duration": "4 weeks",
+    "notes": "For women who want curves, glute growth, leg sculpting, light upper body tone.",
+    "exercises": [
+      "Glute Bridges",
+      "Bodyweight Squats",
+      "Side Leg Raises",
+      "Standing Oblique Crunches",
+      "Dead Bug",
+      "Light Dumbbell Shoulder Press"
+    ]
+  },
+  {
+    "goal": "Thick-Fit",
+    "fitness_level": "Intermediate",
+    "duration": "4 weeks",
+    "notes":"For women who want curves, glute growth, leg sculpting, light upper body tone.",
+    "exercises": [
+      "Bulgarian Split Squats",
+      "Glute Bridges",
+      "Hip Thrusts",
+      "Lateral Lunges",
+      "Plank with Hip Dips",
+      "Mountain Climbers",
+      "Light Dumbbell Shoulder Press"
+    ]
+  },
+  {
+    "goal": "Thick-Fit",
+    "fitness_level": "Advanced",
+    "duration": "6 weeks",
+    "notes":"For women who want curves, glute growth, leg sculpting, light upper body tone.",
+    "exercises": [
+      "Hip Thrusts",
+      "Bulgarian Split Squats",
+      "Resistance Band Kickbacks",
+      "Sumo Squats",
+      "Lateral Lunge to Leg Lift",
+      "V-Ups",
+      "Plank with Leg Lift",
+      "Push-ups",
+      "Mountain Climbers"
+    ]
+  },
+  {
+    "goal": "Slim-Tone",
+    "fitness_level": "Beginner",
+    "duration": "4 weeks",
+    "notes": "For women who want slim waist, toned arms, flat stomach, light muscle sculpting.",
+    "exercises": [
+      "Standing Oblique Crunches",
+      "Dead Bug",
+      "Side Leg Raises",
+      "Glute Bridges",
+      "Tricep Kickbacks"
+    ]
+  },
+  {
+    "goal": "Slim-Tone",
+    "fitness_level": "Intermediate",
+    "duration": "4 weeks",
+    "notes": "For women who want slim waist, toned arms, flat stomach, light muscle sculpting.",
+    "exercises": [
+      "Lateral Lunges",
+      "Hip Abduction (Resistance Band)",
+      "Plank with Hip Dips",
+      "Dead Bug",
+      "Incline Push-ups",
+      "Tricep Kickbacks"
+    ]
+  },
+  {
+    "goal": "Slim-Tone",
+    "fitness_level": "Advanced",
+    "duration": "6 weeks",
+    "notes": "For women who want slim waist, toned arms, flat stomach, light muscle sculpting.",
+    "exercises": [
+      "Lateral Lunge to Leg Lift",
+      "Hip Thrusts",
+      "Side Plank with Leg Lift",
+      "V-Ups",
+      "Standing Oblique Crunches",
+      "Push-ups",
+      "Mountain Climbers"
+    ]
+  },
+  {
+    "goal": "Booty-Build",
+    "fitness_level": "Beginner",
+    "duration": "4 weeks",
+    "notes": "For women who want glute shaping, rounder hips, leg and butt toning with minimal upper body.",
+    "exercises": [
+      "Glute Bridges",
+      "Side Leg Raises",
+      "Hip Abduction (Bodyweight)",
+      "Bodyweight Squats",
+      "Dead Bug"
+    ]
+  },
+  {
+    "goal": "Booty-Build",
+    "fitness_level": "Intermediate",
+    "duration": "4 weeks",
+    "notes": "For women who want glute shaping, rounder hips, leg and butt toning with minimal upper body.",
+    "exercises": [
+      "Bulgarian Split Squats",
+      "Glute Bridges",
+      "Hip Thrusts",
+      "Resistance Band Kickbacks",
+      "Lateral Lunges",
+      "Plank with Leg Lift"
+    ]
+  },
+  {
+    "goal": "Booty-Build",
+    "fitness_level": "Advanced",
+    "duration": "6 weeks",
+    "notes": "For women who want glute shaping, rounder hips, leg and butt toning with minimal upper body.",
+    "exercises": [
+      "Hip Thrusts (Heavy)",
+      "Bulgarian Split Squats",
+      "Resistance Band Hip Abduction",
+      "Sumo Squats",
+      "Glute Bridge March",
+      "Lateral Lunge to Leg Lift",
+      "Side Plank with Leg Lift"
+    ]
   }
+  
 ]

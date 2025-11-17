@@ -244,6 +244,11 @@ export default function Home() {
                 <option value="toned">Toned</option>
                 <option value="strength">Strength</option>
                 <option value="bulk">Bulk</option>
+                <option value="endurance">Endurance</option>
+                <option value="sexy-slender">Sexy-Slender</option>
+                <option value="thick-fit">Sexy-Slender</option>
+                <option value="slim-tone">Sexy-Slender</option>
+                <option value="booty-build">Sexy-Slender</option>
               </select>
             </label>
 

@@ -41,7 +41,7 @@ const userSchema = new Schema (
         type: String,
         ref: "Goal",
         required: true,
-        enum: ['lean', 'strength', 'bulk', 'toned']
+        enum: ['lean', 'strength', 'bulk', 'toned', 'endurance', 'sexy-slender', 'thick-fit', 'slim-tone', 'booty-build' ]
       }],
       workout_routine: [{
         type: Schema.Types.ObjectID,
