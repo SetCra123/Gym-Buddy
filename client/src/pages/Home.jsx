@@ -112,6 +112,8 @@ export default function Home() {
         return "../src/assets/muscular.png";
       case "bulk":
         return "../src/assets/bulk.png";
+      case "sexy-slender":
+        return "../src/sssets/sexy-slender.png";
       default:
         return "../src/assets/toned.png";
     }
@@ -246,9 +248,9 @@ export default function Home() {
                 <option value="bulk">Bulk</option>
                 <option value="endurance">Endurance</option>
                 <option value="sexy-slender">Sexy-Slender</option>
-                <option value="thick-fit">Sexy-Slender</option>
-                <option value="slim-tone">Sexy-Slender</option>
-                <option value="booty-build">Sexy-Slender</option>
+                <option value="thick-fit">Thick-Fit</option>
+                <option value="slim-tone">Slim-Tone</option>
+                <option value="booty-build">Booty-Build</option>
               </select>
             </label>
 
