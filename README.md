@@ -73,4 +73,95 @@ This project was built using the MERN stack (MongoDB, Express, React, Node). <br
 
 
 </div>
+<!-- GETTING STARTED -->
 
+## Getting Started
+
+Once completely built, this application will function as a deployed app on Render.
+
+### Local Installation/Testing
+
+1. Clone the rep
+
+```
+git clone https://github.com/SetCra21/Gym-Buddy.git
+```
+
+2. Install dependencies
+
+```
+npm i
+```
+
+3. Seed the database
+
+```
+npm run seed
+```
+
+4. Launch the app in development environment
+
+```
+npm run start
+``` 
+
+
+5. Navigate to client folder 
+
+```
+cd client
+```
+
+6. Launch app on React server
+
+```
+npm run dev
+```
+
+## Roadmap
+
+<!-- TODO: Plan out rough roadmap here -->
+ 1. A user is taken to the login/signup page, where they can log in or create an account.
+
+ 2. When a user logs in or creates an account, they are taken to a profile update page where they   begin to build a profile by entering their age, height and weight.
+
+ 3. Once a user chooses their age, weight and height, they are redirected to a page where they choose a fitness goal.  
+
+ 4. Once a user chooses a fitness goal, they are redirected to a page where they choose their fitness level.  
+
+ 5. Once a user chooses a fitness level, they are redirected to a home page, where they can see their profile information and a workout routine, consisting of exercises that to match their fitness goal and fitness level. 
+ 6. Once on the homepage, a user can update their profile for a new curated workout routine. 
+
+
+#### MVP
+
+ - [x] Front End
+
+  - [x] User Auth
+  - [x] User Profile Page
+    - [x] Routing
+    - [x] Styling
+  - [x] Home Page
+    - [x] Routing
+    - [x] Styling
+  - [x] Goals Page
+    - [x] Routing
+    - [x] Styling
+  - [x] Fitness Page
+    - [x] Routing
+    - [x] Styling
+- [x] Back End
+  - [x] User Auth
+  - [x] Models
+  - [x] Seeds
+  - [x] api Routing
+
+
+
+#### Future Development
+
+- [ ] Function for user to create a custom workout.
+- [ ] Function for user to save workouts, once completed and view saved workouts
+- [ ] Develop in Social Network 
+
+See the [open issues](https://github.com/SetCra21/Gym-Buddy/issues) for a full list of proposed features (and known issues).
