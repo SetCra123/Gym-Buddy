@@ -30,8 +30,10 @@ export default function GoalSelection() {
   };
 
   return (
-    <div className="goals-setup">
-      <h2>Select Your Goal and Fitness Level</h2>
+    <div className="goals-setup goal-page">
+      
+     <div className="selection-card">
+      <h2>Select Your Goal!</h2>
 
       {error && <p className="error">{error}</p>}
 
@@ -46,14 +48,15 @@ export default function GoalSelection() {
             <option value="toned">Toned</option>
             <option value="endurance">Endurance</option>
             <option value="sexy-slender">Sexy-Slender</option>
-            <option value="thick-fit">Sexy-Slender</option>
-            <option value="slim-tone">Sexy-Slender</option>
-            <option value="booty-build">Sexy-Slender</option>
+            <option value="thick-fit">Thick-Fit</option>
+            <option value="slim-tone">Slim-Tone</option>
+            <option value="booty-build">Booty-Build</option>
           </select>
         </div>
 
-        <button type="submit">Submit</button>
+        <button className="main-btn" type="submit">Submit</button>
       </form>
+     </div>
     </div>
   );
 }

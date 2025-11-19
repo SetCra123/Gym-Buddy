@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import "../index.css";
 import { updateUserProfile } from "../utils/API"; // ✅ you'll make this API function
 
 function ProfileSetup() {
@@ -36,8 +36,9 @@ function ProfileSetup() {
   };
 
   return (
-    <div className="profile-setup">
-      <h2>Set Up Your Profile</h2>
+    <div className="profile-setup profile-page">
+      <div className="selection-card">
+      <h2>Set Up Your Profile!</h2>
       <form onSubmit={handleSubmit}>
         <input
           name="age"
@@ -60,8 +61,9 @@ function ProfileSetup() {
           placeholder="Weight"
           required
         />
-        <button type="submit">Submit</button>
+        <button className="main-btn" type="submit">Submit</button>
       </form>
+     </div>
     </div>
   );
 }

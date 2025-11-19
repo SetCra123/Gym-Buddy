@@ -39,8 +39,10 @@ export default function FitnessSelection() {
   };
 
   return (
-    <div className="fitness-selection">
-      <h2>Select Your Fitness Level</h2>
+    <div className="fitness-selection fitness-page">
+      
+     <div className="selection-card">
+      <h2>Select Your Fitness Level!</h2>
       <form onSubmit={handleSubmit}>
         <select value={fitnessLevel} onChange={(e) => setFitnessLevel(e.target.value)} required>
           <option value="">Select level</option>
@@ -48,9 +50,10 @@ export default function FitnessSelection() {
           <option value="intermediate">Intermediate</option>
           <option value="advanced">Advanced</option>
         </select>
-        <button type="submit">Finish</button>
+        <button className="main-btn" type="submit">Finish</button>
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>}
+      </div> 
     </div>
   );
 }
