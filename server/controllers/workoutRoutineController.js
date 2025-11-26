@@ -1,9 +1,31 @@
 const WorkoutRoutine = require('../models/WorkoutRoutine');
 const User = require('../models/User');
 const Exercise = require('../models/Exercise');
-
+const CompletedWorkout = require('../models/CompletedWorkout');
 
 module.exports = {
+    
+    async savecompletedWorkoutRoutine(req, res){
+      try {
+        const workout = await CompletedWorkout.create(req.body);
+        res.json(workout);
+      } catch (err) {
+        res.status(500).json({ message: err.message });
+      }
+    },
+    
+    async getcompletedWorkoutRoutine(req, res){
+      try {
+        const workouts = await CompletedWorkout.find({
+          userId: req.params.userId
+        }).sort({ dateCompleted: -1 });
+
+        res.json(workouts);
+      } catch (err) {
+        res.status(500).json({ message: err.message });
+      }
+    },
+
     async createNewWorkoutRoutine(req, res,) {
       try {
         const { userId, exercises, duration, intensity, difficulty, goal } = req.body;
