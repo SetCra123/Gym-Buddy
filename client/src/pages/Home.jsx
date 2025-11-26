@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { getUsers, updateUserProfile, assignWorkoutRoutine } from "../utils/API";
+import { getUsers, updateUserProfile, assignWorkoutRoutine, getCompletedWorkouts, saveCompletedWorkout } from "../utils/API";
 import { logout } from "../utils/API";
 import "../Home.css";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [expandedExercise, setExpandedExercise] = useState(null);
+  const [history, setHistory] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState({
     goal: "",
     fitness_level: "",
   });
-
+  const navigate = useNavigate();
   // Load user from localStorage or fetch from API
   useEffect(() => {
     const loadUser = async () => {
@@ -44,8 +46,17 @@ export default function Home() {
             }
             setUser(userData);
             localStorage.setItem("user", JSON.stringify(userData));
+            activeUser = userData;
           }
         }
+
+        //fetch completed workout history
+        if (activeUseer && activeUser._id) {
+          const workoutHistory = await getCompletedWorkouts(activeUser._id);
+          setHistory(workoutHistory);
+        }
+
+
       } catch (err) {
         console.error("❌ Error loading user:", err);
       }
@@ -125,6 +136,18 @@ export default function Home() {
     logout();
   };
 
+  const handleFinishWorkout = async () => {
+    await saveCompletedWorkout({
+      userId: user._id,
+      routineName: routine.goal,
+      exercises: routine.exercises, 
+      caloriesBurned: calculateCalories(routine),
+    });
+  
+   alert("Workout saved!");
+  
+  };
+
   return (
     <div className="home-page">
       <div className="user-info">
@@ -174,6 +197,10 @@ export default function Home() {
                         ▶
                       </motion.span>
                     </motion.div>
+
+                    <button className="save-workout" onClick={handleFinishWorkout}>
+                        🚪 Complete Workout Routine
+                    </button>
 
                     <AnimatePresence>
                       {isOpen && (
@@ -279,6 +306,37 @@ export default function Home() {
       🚪 Log Out
     </button>
     
+   {/* 🏋️ Scrollable Workout History Section */}
+<div className="history-section">
+  <h2 className="history-title">Your Recent Workouts</h2>
+
+  <div className="history-scroll">
+    {workoutHistory.length === 0 ? (
+      <p className="history-empty">No completed workouts yet.</p>
+    ) : (
+      workoutHistory.map((w) => (
+        <div key={w._id} className="history-card">
+          <h3>{w.routineName}</h3>
+          <p className="history-date">
+            {new Date(w.dateCompleted).toLocaleDateString()}
+          </p>
+
+          <ul className="history-exercise-list">
+            {w.exercises.slice(0, 3).map((ex, idx) => (
+              <li key={idx} className="history-exercise">
+                {ex.name}
+              </li>
+            ))}
+          </ul>
+
+          <a href="/completed-workouts" className="history-view-more">
+            View details →
+          </a>
+        </div>
+      ))
+    )}
+  </div>
+</div>
     
     </div>
   );
