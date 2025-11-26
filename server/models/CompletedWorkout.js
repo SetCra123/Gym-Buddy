@@ -24,7 +24,7 @@ const completedWorkoutSchema = new Schema (
       caloriesBurned: Number,
       dateCompleted: {
         type: Date,
-        defaut: Date.now
+        default: Date.now
       },
  }
 );
