@@ -15,10 +15,10 @@ router.route('/').get(getAllworkoutRoutines);
 router.route('/user/:userId').get(getUserWorkout)
                     .delete(removeworkoutRoutine);
 //POST a saved workout
-router.route('/save').post(savecompletedWorkoutRoutine);
+router.route('completed/save').post(savecompletedWorkoutRoutine);
 
 //GET user completed workouts
-router.route('/:userId').get(getcompletedWorkoutRoutine);
+router.route('completed/:userId').get(getcompletedWorkoutRoutine);
 
 
 

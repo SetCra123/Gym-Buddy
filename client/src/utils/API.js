@@ -179,6 +179,23 @@ export const createNewWorkoutRoutine = async (userData) => {
   );
 };
 
+export const saveCompletedWorkout = async (workoutData) => {
+  return fetch('/api/workout-routines/completed/save', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(workoutData)
+  });
+};
+
+export const getCompletedWorkouts = async (userId) => {
+  return fetch(`/api/workout-routines/completed/${userId}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+};
+
 export const logout = () => {
   // 🧹 Clear all auth data
   localStorage.removeItem("token");
