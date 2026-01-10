@@ -19,50 +19,38 @@ export default function Home() {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const storedUser = JSON.parse(localStorage.getItem("user"));
         let activeUser = null;
         
+        // Get user from localStorage OR API
+        const storedUser = JSON.parse(localStorage.getItem("user"));
         if (storedUser) {
           activeUser = storedUser;
-
-          // If user has goal but no routine, assign one
-          if (
-            activeUser.goal &&
-            (!activeUser.workout_routine || activeUser.workout_routine.length === 0)
-          ) {
-            const newRoutine = await assignWorkoutRoutine();
-            const activeUser = { ...storedUser, workout_routine: [newRoutine.routine] };
-            localStorage.setItem("user", JSON.stringify(activeUser));
-          }
-          setUser(activeUser);
         } else {
-          // Fetch from API if not in localStorage
-          const apiUser = await getUsers();
-          activeUser = apiUser;
-          
-          if (activeUser) {
-            // If no routine, assign one based on goal
-            if (!activeUser.workout_routine || activeUser.workout_routine.length === 0) {
-              const newRoutine = await assignWorkoutRoutine();
-              activeUser = { ...apiUser, workout_routine: [newRoutine.routine] };
-            }
-            localStorage.setItem("user", JSON.stringify(activeUser));
-            
-          }
+          activeUser = await getUsers();
         }
-
-        //fetch completed workout history
-        
+  
+        // Assign workout routine if needed 
+        if (activeUser && activeUser.goal && 
+            (!activeUser.workout_routine || activeUser.workout_routine.length === 0)) {
+          const newRoutine = await assignWorkoutRoutine();
+          activeUser = { ...activeUser, workout_routine: [newRoutine.routine] };
+        }
+  
+        // Save to localStorage and state 
+        if (activeUser) {
+          localStorage.setItem("user", JSON.stringify(activeUser));
+          setUser(activeUser);
+  
+          // Fetch workout history
           const workoutHistory = await getCompletedWorkoutRoutine(activeUser._id);
           setworkoutHistory(workoutHistory);
-        
-
-
+        }
+  
       } catch (err) {
         console.error("❌ Error loading user:", err);
       }
     };
-
+  
     loadUser();
   }, []);
 
@@ -138,6 +126,12 @@ export default function Home() {
   };
 
   const handleFinishWorkout = async () => {
+    
+    if (!routine || !routine.exercises) {
+      alert("No workout routine to complete!");
+      return;
+    }
+    
     try {
     await saveCompletedWorkoutRoutine({
       userId: user._id,
@@ -145,8 +139,9 @@ export default function Home() {
       goal: routine.goal,
       fitness_level: routine.fitness_level,
       duration: routine.duration 
-
     });
+
+    console.log("📦 Data being sent to backend:", dataToSend);
 
     const updatedHistory = await getCompletedWorkoutRoutine(user._id);
     console.log("🔥 Workout history returned from API:", updatedHistory);

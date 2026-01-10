@@ -10,7 +10,7 @@ module.exports = {
     async saveCompletedWorkoutRoutine(req, res){
       try {
         const workout = await CompletedWorkout.create({
-          userId: req.body.user._id,
+          userId: req.body.userId,
           goal: req.body.goal,
           fitness_level: req.body.fitness_level,
           exercises: req.body.exercises,
