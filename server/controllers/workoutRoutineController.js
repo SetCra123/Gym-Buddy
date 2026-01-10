@@ -3,18 +3,27 @@ const User = require('../models/User');
 const Exercise = require('../models/Exercise');
 const CompletedWorkout = require('../models/CompletedWorkout');
 
+
+
 module.exports = {
     
-    async savecompletedWorkoutRoutine(req, res){
+    async saveCompletedWorkoutRoutine(req, res){
       try {
-        const workout = await CompletedWorkout.create(req.body);
+        const workout = await CompletedWorkout.create({
+          userId: req.body.user._id,
+          goal: req.body.goal,
+          fitness_level: req.body.fitness_level,
+          exercises: req.body.exercises,
+          duration: req.body.duration, 
+          dateCompleted: new Date()
+        });
         res.json(workout);
       } catch (err) {
         res.status(500).json({ message: err.message });
       }
     },
     
-    async getcompletedWorkoutRoutine(req, res){
+    async getCompletedWorkoutRoutine(req, res){
       try {
         const workouts = await CompletedWorkout.find({
           userId: req.params.userId

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUsers, updateUserProfile, assignWorkoutRoutine, getCompletedWorkouts, saveCompletedWorkout } from "../utils/API";
+import { getUsers, updateUserProfile, assignWorkoutRoutine, getCompletedWorkoutRoutine, saveCompletedWorkoutRoutine } from "../utils/API";
 import { logout } from "../utils/API";
 import "../Home.css";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,7 +9,7 @@ export default function Home() {
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [expandedExercise, setExpandedExercise] = useState(null);
-  const [history, setHistory] = useState([]);
+  const [history, setworkoutHistory] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState({
     goal: "",
     fitness_level: "",
@@ -20,41 +20,42 @@ export default function Home() {
     const loadUser = async () => {
       try {
         const storedUser = JSON.parse(localStorage.getItem("user"));
-
+        let activeUser = null;
+        
         if (storedUser) {
-          setUser(storedUser);
+          activeUser = storedUser;
 
           // If user has goal but no routine, assign one
           if (
-            storedUser.goal &&
-            (!storedUser.workout_routine || storedUser.workout_routine.length === 0)
+            activeUser.goal &&
+            (!activeUser.workout_routine || activeUser.workout_routine.length === 0)
           ) {
             const newRoutine = await assignWorkoutRoutine();
-            const updatedUser = { ...storedUser, workout_routine: [newRoutine.routine] };
-            setUser(updatedUser);
-            localStorage.setItem("user", JSON.stringify(updatedUser));
+            const activeUser = { ...storedUser, workout_routine: [newRoutine.routine] };
+            localStorage.setItem("user", JSON.stringify(activeUser));
           }
+          setUser(activeUser);
         } else {
           // Fetch from API if not in localStorage
           const apiUser = await getUsers();
-          if (apiUser) {
+          activeUser = apiUser;
+          
+          if (activeUser) {
             // If no routine, assign one based on goal
-            let userData = apiUser;
-            if (!apiUser.workout_routine || apiUser.workout_routine.length === 0) {
+            if (!activeUser.workout_routine || activeUser.workout_routine.length === 0) {
               const newRoutine = await assignWorkoutRoutine();
-              userData = { ...apiUser, workout_routine: [newRoutine.routine] };
+              activeUser = { ...apiUser, workout_routine: [newRoutine.routine] };
             }
-            setUser(userData);
-            localStorage.setItem("user", JSON.stringify(userData));
-            activeUser = userData;
+            localStorage.setItem("user", JSON.stringify(activeUser));
+            
           }
         }
 
         //fetch completed workout history
-        if (activeUseer && activeUser._id) {
-          const workoutHistory = await getCompletedWorkouts(activeUser._id);
-          setHistory(workoutHistory);
-        }
+        
+          const workoutHistory = await getCompletedWorkoutRoutine(activeUser._id);
+          setworkoutHistory(workoutHistory);
+        
 
 
       } catch (err) {
@@ -137,16 +138,27 @@ export default function Home() {
   };
 
   const handleFinishWorkout = async () => {
-    await saveCompletedWorkout({
+    try {
+    await saveCompletedWorkoutRoutine({
       userId: user._id,
-      routineName: routine.goal,
-      exercises: routine.exercises, 
-      caloriesBurned: calculateCalories(routine),
+      exercises: routine.exercises,
+      goal: routine.goal,
+      fitness_level: routine.fitness_level,
+      duration: routine.duration 
+
     });
+
+    const updatedHistory = await getCompletedWorkoutRoutine(user._id);
+    console.log("🔥 Workout history returned from API:", updatedHistory);
+    setworkoutHistory(updatedHistory);
   
    alert("Workout saved!");
+    } catch (error) {
+     console.error("Error saving workout:", error);
+     alert("Error saving workout.");
+    }
+   };
   
-  };
 
   return (
     <div className="home-page">
@@ -198,9 +210,7 @@ export default function Home() {
                       </motion.span>
                     </motion.div>
 
-                    <button className="save-workout" onClick={handleFinishWorkout}>
-                        🚪 Complete Workout Routine
-                    </button>
+                    
 
                     <AnimatePresence>
                       {isOpen && (
@@ -255,7 +265,9 @@ export default function Home() {
       ) : (
         <p>You don't have a routine assigned yet.</p>
       )}
-
+      <button className="save-workout" onClick={handleFinishWorkout}>
+                        🚪 Complete Workout Routine
+      </button>
       <button className="edit-profile-btn" onClick={handleEditClick}>
         ✏️ Edit Profile
       </button>
@@ -311,10 +323,10 @@ export default function Home() {
   <h2 className="history-title">Your Recent Workouts</h2>
 
   <div className="history-scroll">
-    {workoutHistory.length === 0 ? (
+    {history.length === 0 ? (
       <p className="history-empty">No completed workouts yet.</p>
     ) : (
-      workoutHistory.map((w) => (
+      history.map((w) => (
         <div key={w._id} className="history-card">
           <h3>{w.routineName}</h3>
           <p className="history-date">

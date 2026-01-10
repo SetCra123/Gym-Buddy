@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {
-  savecompletedWorkoutRoutine,
-  getcompletedWorkoutRoutine,
+  saveCompletedWorkoutRoutine,
+  getCompletedWorkoutRoutine,
   createNewWorkoutRoutine,
   getAllworkoutRoutines,
   removeworkoutRoutine,
@@ -15,10 +15,10 @@ router.route('/').get(getAllworkoutRoutines);
 router.route('/user/:userId').get(getUserWorkout)
                     .delete(removeworkoutRoutine);
 //POST a saved workout
-router.route('completed/save').post(savecompletedWorkoutRoutine);
+router.route('/completed/save').post(saveCompletedWorkoutRoutine);
 
 //GET user completed workouts
-router.route('completed/:userId').get(getcompletedWorkoutRoutine);
+router.route('/completed/:userId').get(getCompletedWorkoutRoutine);
 
 
 

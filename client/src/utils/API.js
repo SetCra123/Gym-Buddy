@@ -179,8 +179,10 @@ export const createNewWorkoutRoutine = async (userData) => {
   );
 };
 
-export const saveCompletedWorkout = async (workoutData) => {
-  return fetch('/api/workout-routines/completed/save', {
+export const saveCompletedWorkoutRoutine = async (workoutData) => {
+  return apiRequest(
+    '/api/workout-routines/completed/save',
+    {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -189,10 +191,14 @@ export const saveCompletedWorkout = async (workoutData) => {
   });
 };
 
-export const getCompletedWorkouts = async (userId) => {
-  return fetch(`/api/workout-routines/completed/${userId}`, {
+export const getCompletedWorkoutRoutine = async (userId) => {
+  return apiRequest(
+    `/api/workout-routines/completed/${userId}`,
+    {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Content-Type": "application/json"
+    },
   });
 };
 

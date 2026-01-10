@@ -9,10 +9,6 @@ const completedWorkoutSchema = new Schema (
         ref: 'User',
         required: true
       },
-      routineName: {
-        type: String,
-        required: true
-      },
       exercises: [
         {
           name: String,
@@ -21,7 +17,14 @@ const completedWorkoutSchema = new Schema (
           duration: String
         }
       ],
-      caloriesBurned: Number,
+      fitness_level: {
+        type: String,
+        required: true,
+      },
+      goal: {
+        type: String,
+        required: true,
+      },
       dateCompleted: {
         type: Date,
         default: Date.now
