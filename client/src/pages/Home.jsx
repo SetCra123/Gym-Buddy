@@ -141,7 +141,7 @@ export default function Home() {
       duration: routine.duration 
     });
 
-    console.log("📦 Data being sent to backend:", dataToSend);
+    
 
     const updatedHistory = await getCompletedWorkoutRoutine(user._id);
     console.log("🔥 Workout history returned from API:", updatedHistory);

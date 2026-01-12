@@ -181,57 +181,54 @@ module.exports = {
       }
     },
 
-async assignWorkoutRoutine(req, res) {
-  try {
+    async assignWorkoutRoutine(req, res) {
+      try {
+        const user = await User.findById(req.user._id);
     
-    const user = await User.findById(req.user._id);
-
-    if(!user.goal || !user.fitness_level){
-      const refreshedUser = await User.findById(req.user._id);
-      if (!refreshedUser.goal || refreshedUser.fitness_level) {
-        return res.status(400).json({
-          message: "User must have a goal and fitness before assigning a routine"
+       
+        if (!user.goal || !user.fitness_level) {
+          return res.status(400).json({
+            message: "User must have a goal and fitness level before assigning a routine"
+          });
+        }
+    
+        // Find a routine that matches goal and fitness
+        const routine = await WorkoutRoutine.findOne({
+          goal: user.goal,
+          fitness_level: user.fitness_level,
+        }).populate("exercises");
+        
+        if (!routine) {
+          return res.status(404).json({ 
+            message: `No routine found for goal: ${user.goal} and fitness level: ${user.fitness_level}`,
+          });
+        }  
+    
+        // ✅ Use findByIdAndUpdate to populate user workout routine
+        const updatedUser = await User.findByIdAndUpdate(
+          req.user._id,
+          { 
+            workout_routine: [routine._id],
+            profileComplete: true 
+          },
+          { new: true } // Return the updated document
+        ).populate({
+          path: "workout_routine",
+          populate: { path: "exercises" },
         });
-       }
-      }
-
-      const routine = await WorkoutRoutine.findOne({
-        goal: user.goal,
-        fitness_level: user.fitness_level,
-      }).populate("exercises");
     
-    // Find a routine that matches goal and fitness
-    if (!routine) {
-      return res.status(404).json({ 
-        message: `No routine found for goal: ${user.goal} and fitness level: ${user.fitness_level}`,
-      });
-    }  
-
-    // Assign the routine to the user
-    user.workout_routine = [routine._id];
-    user.profileComplete = true;
-    await user.save();
-
-    const populatedUser = await User.findById(user._id)
-      .populate({
-        path: "workout_routine",
-        populate: { path: "exercises" },
-      });
-
-    console.log(`🏋️ Assigned ${routine.name} to ${user.username}`);
-
-    // Return routine details
-    res.json({
-      message: "Routine assigned successfully!",
-      user: populatedUser,
-      routine,
-    });
-  } catch (err) {
-    console.error("❌ Error assigning routine:", err);
-    res.status(500).json({ message: "Failed to assign workout routine" });
-  }
-},
-
+        console.log(`🏋️ Assigned ${routine.name} to ${updatedUser.username}`);
+    
+        res.json({
+          message: "Routine assigned successfully!",
+          user: updatedUser,
+          routine,
+        });
+      } catch (err) {
+        console.error("❌ Error assigning routine:", err);
+        res.status(500).json({ message: "Failed to assign workout routine", error: err.message });
+      }
+    }
 
 
 };
