@@ -329,6 +329,8 @@ export default function Home() {
           </p>
 
           <ul className="history-exercise-list">
+          <strong>Goal:</strong> {routine.goal} |{" "}
+          <strong>Level:</strong> {routine.fitness_level}
             {w.exercises.slice(0, 3).map((ex, idx) => (
               <li key={idx} className="history-exercise">
                 {ex.name}
