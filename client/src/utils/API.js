@@ -210,3 +210,59 @@ export const logout = () => {
   // 🚪 Redirect to login page
   window.location.href = "/login";
 };
+
+// ===========================
+// 🧍 BODY SCAN ROUTES
+// ===========================
+
+// ✅ Upload image for AI body scan
+export const createBodyScan = async (file) => {
+  const token = localStorage.getItem("token");
+
+  const formData = new FormData();
+  formData.append("image", file);
+
+  return apiRequest(
+    "/api/body-scan",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`, // 🚨 NO Content-Type here
+      },
+      body: formData,
+    },
+    "Failed to create body scan"
+  );
+};
+
+// ✅ Get all scans for logged-in user
+export const getBodyScans = async () => {
+  const token = localStorage.getItem("token");
+
+  return apiRequest(
+    "/api/body-scan",
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+    "Failed to fetch body scans"
+  );
+};
+
+// ✅ Get most recent scan
+export const getLatestBodyScan = async () => {
+  const token = localStorage.getItem("token");
+
+  return apiRequest(
+    "/api/body-scan/latest",
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+    "Failed to fetch latest body scan"
+  );
+};
