@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createBodyScan } from "../utils/API"; 
+import "../BodyAnalysisPage.css";
 
 import BodyAnalysisUploadForm from "../components/BodyAnalysisUploadForm";
 import BodyScanResults from "../components/BodyScanResults";

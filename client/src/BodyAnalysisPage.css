@@ -1,0 +1,70 @@
+.page {
+    max-width: 800px;
+    margin: auto;
+    color: white;
+  }
+  
+  .upload-box {
+    margin: 20px 0;
+  }
+  
+  .results {
+    margin-top: 20px;
+  }
+  
+  .analysis, .plan {
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .bar {
+    background: #333;
+    height: 10px;
+    margin: 5px 0;
+  }
+  
+  .fill {
+    background: limegreen;
+    height: 100%;
+  }
+  
+  .image-wrapper {
+    position: relative;
+  }
+  
+  .image {
+    width: 100%;
+    display: block;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-right: 2px solid white;
+  }
+  
+  .loading {
+    text-align: center;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid gray;
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }

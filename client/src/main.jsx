@@ -8,6 +8,7 @@ import ProfileSetup from "./pages/ProfileSetup";
 import GoalSelection from "./pages/GoalSelection";
 import ProtectedRoute from "./components/ProtectedRoutes"; // ✅ renamed to match component name
 import FitnessSelection from "./pages/FitnessSelection";
+import BodyAnalysisPage from "./pages/BodyAnalysisPage"; 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 // add an Error component//
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       
       { path: "home", 
         element: <Home />,
+      },
+      
+      { path: "body-analysis", 
+        element: <BodyAnalysisPage />,
       },
       
         ],

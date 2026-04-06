@@ -266,6 +266,12 @@ export default function Home() {
       <button className="edit-profile-btn" onClick={handleEditClick}>
         ✏️ Edit Profile
       </button>
+      <button
+        className="analysis-btn"
+        onClick={() => navigate("/body-analysis")}
+      >
+        Try AI Body Analysis
+      </button>
 
       {/* ✅ Modal */}
       {showModal && (
